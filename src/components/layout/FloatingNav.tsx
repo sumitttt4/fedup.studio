@@ -39,9 +39,7 @@ export function FloatingNav() {
 
                 {/* Logo Section */}
                 <div className="pl-5 pr-4 flex items-center gap-2 shrink-0">
-                    <div className="w-4 h-4 rounded-full bg-white flex items-center justify-center">
-                        <div className="w-1.5 h-1.5 rounded-full bg-black" />
-                    </div>
+                    <img src="/logo.svg" alt="Fedup Studio Logo" className="w-6 h-6 object-contain" />
                     <span className="text-white tracking-widest text-xs uppercase">fedup.</span>
                 </div>
 
