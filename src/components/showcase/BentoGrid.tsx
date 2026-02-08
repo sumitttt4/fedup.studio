@@ -309,35 +309,53 @@ export function BentoGrid() {
                 className="mt-16 mb-8"
             >
                 <div className="flex items-center justify-between mb-6">
-                    <h3 className="text-xl font-medium text-white">Premium Templates</h3>
-                    <a href="#" className="text-sm text-zinc-500 hover:text-white transition-colors">View All →</a>
+                    <h3 className="text-xl font-medium text-white" style={{ fontFamily: 'var(--font-geist-pixel-square)' }}>Selected Projects</h3>
+                    <a href="#work" className="text-xs uppercase tracking-wider text-zinc-500 hover:text-white transition-colors">View All →</a>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
-                    <BentoCard className="p-4 bg-zinc-900/50 group cursor-pointer" delay={0.1}>
-                        {/* SaaS Starter Visual */}
-                        <div className="aspect-video rounded-lg bg-[#0F0F0F] border border-white/5 mb-3 group-hover:border-white/10 transition-colors relative overflow-hidden flex flex-col p-2 gap-1.5">
-                            <div className="h-2 w-1/3 bg-white/10 rounded-sm" />
-                            <div className="flex flex-1 gap-1.5">
-                                <div className="w-1/4 h-full bg-white/5 rounded-sm" />
-                                <div className="flex-1 h-full bg-white/5 rounded-sm" />
+                    <BentoCard className="p-4 bg-zinc-900/50 group cursor-pointer overflow-hidden" delay={0.1}>
+                        {/* Project 1: AgentOps */}
+                        <div className="aspect-video rounded-lg bg-[#0F0F0F] border border-white/5 mb-3 group-hover:border-white/10 transition-colors relative overflow-hidden">
+                            <img
+                                src="/projects/agentops.png"
+                                alt="AgentOps Dashboard"
+                                className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+                                onError={(e) => {
+                                    e.currentTarget.style.display = 'none';
+                                    e.currentTarget.parentElement!.style.background = '#1a1a1a';
+                                }}
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-3 pointer-events-none">
+                                <div className="hidden group-hover:block transition-all text-[10px] bg-blue-600 text-white px-2 py-0.5 rounded-full font-medium tracking-wide">
+                                    DASHBOARD
+                                </div>
                             </div>
-                            {/* Accent Dot */}
-                            <div className="absolute top-2 right-2 h-1.5 w-1.5 rounded-full bg-indigo-500 shadow-[0_0_8px_rgba(99,102,241,0.5)]" />
                         </div>
-                        <h4 className="text-white font-medium/90 text-sm tracking-wide" style={{ fontFamily: 'var(--font-geist-pixel-square)' }}>SaaS Starter</h4>
-                        <p className="text-zinc-500 text-[10px] mt-1 opacity-80">$49 • Next.js + Tailwind</p>
+                        <h4 className="text-white font-medium/90 text-sm tracking-wide" style={{ fontFamily: 'var(--font-geist-pixel-square)' }}>AgentOps</h4>
+                        <p className="text-zinc-500 text-[10px] mt-1 opacity-80">AI Agent Observability • Next.js</p>
                     </BentoCard>
 
-                    <BentoCard className="p-4 bg-zinc-900/50 group cursor-pointer" delay={0.2}>
-                        {/* Design System Kit Visual */}
-                        <div className="aspect-video rounded-lg bg-[#0F0F0F] border border-white/5 mb-3 group-hover:border-white/10 transition-colors relative overflow-hidden grid grid-cols-3 grid-rows-2 gap-1 p-3">
-                            {[...Array(6)].map((_, i) => (
-                                <div key={i} className={`rounded-sm ${i === 0 ? 'bg-emerald-500/20 border border-emerald-500/30' : 'bg-white/5 border border-white/5'}`} />
-                            ))}
+                    <BentoCard className="p-4 bg-zinc-900/50 group cursor-pointer overflow-hidden" delay={0.2}>
+                        {/* Project 2: Identity */}
+                        <div className="aspect-video rounded-lg bg-[#0F0F0F] border border-white/5 mb-3 group-hover:border-white/10 transition-colors relative overflow-hidden">
+                            <img
+                                src="/projects/typography.png"
+                                alt="Typography System"
+                                className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+                                onError={(e) => {
+                                    e.currentTarget.style.display = 'none';
+                                    e.currentTarget.parentElement!.style.background = '#8B0000';
+                                }}
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-3 pointer-events-none">
+                                <div className="hidden group-hover:block transition-all text-[10px] bg-red-600 text-white px-2 py-0.5 rounded-full font-medium tracking-wide">
+                                    IDENTITY
+                                </div>
+                            </div>
                         </div>
-                        <h4 className="text-white font-medium/90 text-sm tracking-wide" style={{ fontFamily: 'var(--font-geist-pixel-square)' }}>Design System Kit</h4>
-                        <p className="text-zinc-500 text-[10px] mt-1 opacity-80">$39 • React + Tailwind</p>
+                        <h4 className="text-white font-medium/90 text-sm tracking-wide" style={{ fontFamily: 'var(--font-geist-pixel-square)' }}>Fedup Identity</h4>
+                        <p className="text-zinc-500 text-[10px] mt-1 opacity-80">Brand System • Typography</p>
                     </BentoCard>
                 </div>
             </motion.div>

@@ -111,9 +111,8 @@ export function LeftPanel() {
                 </a>
             </motion.div>
 
-            {/* Hero Headline */}
             <motion.div variants={itemVariants} className="mb-10">
-                <h1 className="text-[2.5rem] lg:text-[2.75rem] xl:text-[3.25rem] leading-[1.1] tracking-normal">
+                <h1 className="text-[2.5rem] lg:text-[2.75rem] xl:text-[3.25rem] leading-[1.1] tracking-wide">
                     <span className="font-medium text-white block">
                         Fedup with
                     </span>
@@ -132,19 +131,18 @@ export function LeftPanel() {
             <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-3 mb-10">
                 <a
                     href="#contact"
-                    className="group inline-flex items-center gap-2.5 rounded-full bg-zinc-900 border border-zinc-700 hover:border-zinc-500 px-5 py-2.5 text-sm font-medium text-white hover:bg-zinc-800 transition-all duration-200"
+                    className="inline-flex items-center gap-2.5 rounded-full bg-white px-6 py-3 text-[12px] uppercase tracking-wide text-zinc-900 hover:bg-zinc-200 transition-all duration-200"
+                    style={{ fontFamily: 'var(--font-geist-pixel-square)' }}
                 >
-                    <svg className="h-4 w-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                    </svg>
-                    Book an Intro Call
+                    Book a Call
                 </a>
                 <a
                     href="#work"
-                    className="group inline-flex items-center gap-2.5 rounded-full border border-zinc-700 hover:border-zinc-500 px-5 py-2.5 text-sm font-medium text-zinc-300 hover:bg-zinc-800/50 transition-all duration-200"
+                    className="group inline-flex items-center gap-2.5 rounded-full border border-zinc-700 hover:border-zinc-500 px-6 py-3 text-[12px] uppercase tracking-wide text-zinc-300 hover:bg-zinc-800/50 transition-all duration-200"
+                    style={{ fontFamily: 'var(--font-geist-pixel-square)' }}
                 >
-                    <span className="h-2 w-2 rounded-full bg-red-500" />
-                    Check Our works
+                    <span className="h-1.5 w-1.5 rounded-full bg-red-500" />
+                    Check Our work
                 </a>
             </motion.div>
 
