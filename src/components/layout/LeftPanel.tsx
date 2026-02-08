@@ -120,7 +120,7 @@ export function LeftPanel() {
                     <span className="font-medium text-white block">
                         boring designs?
                     </span>
-                    <span className="text-zinc-500 block mt-3 text-lg leading-snug">
+                    <span className="text-zinc-500 block mt-3 text-sm font-sans tracking-normal opacity-80" style={{ fontFamily: 'var(--font-inter)' }}>
                         We build premium templates, <br />
                         components & custom software <br />
                         for modern startups.

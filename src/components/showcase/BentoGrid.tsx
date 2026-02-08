@@ -325,8 +325,8 @@ export function BentoGrid() {
                             {/* Accent Dot */}
                             <div className="absolute top-2 right-2 h-1.5 w-1.5 rounded-full bg-indigo-500 shadow-[0_0_8px_rgba(99,102,241,0.5)]" />
                         </div>
-                        <h4 className="text-white font-medium">SaaS Starter</h4>
-                        <p className="text-zinc-500 text-xs">$49 • Next.js + Tailwind</p>
+                        <h4 className="text-white font-medium/90 text-sm tracking-wide" style={{ fontFamily: 'var(--font-geist-pixel-square)' }}>SaaS Starter</h4>
+                        <p className="text-zinc-500 text-[10px] mt-1 opacity-80">$49 • Next.js + Tailwind</p>
                     </BentoCard>
 
                     <BentoCard className="p-4 bg-zinc-900/50 group cursor-pointer" delay={0.2}>
@@ -336,8 +336,8 @@ export function BentoGrid() {
                                 <div key={i} className={`rounded-sm ${i === 0 ? 'bg-emerald-500/20 border border-emerald-500/30' : 'bg-white/5 border border-white/5'}`} />
                             ))}
                         </div>
-                        <h4 className="text-white font-medium">Design System Kit</h4>
-                        <p className="text-zinc-500 text-xs">$39 • React + Tailwind</p>
+                        <h4 className="text-white font-medium/90 text-sm tracking-wide" style={{ fontFamily: 'var(--font-geist-pixel-square)' }}>Design System Kit</h4>
+                        <p className="text-zinc-500 text-[10px] mt-1 opacity-80">$39 • React + Tailwind</p>
                     </BentoCard>
                 </div>
             </motion.div>

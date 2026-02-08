@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
-import { GeistSans } from 'geist/font/sans';
+import { Inter } from "next/font/google";
 import { GeistMono } from 'geist/font/mono';
 import { GeistPixelSquare } from 'geist/font/pixel';
 import "./globals.css";
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
   title: "fedup.studio | Design Engineering Lab",
@@ -24,8 +26,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable} ${GeistPixelSquare.variable}`}>
-      <body className={`${GeistSans.className} antialiased bg-[#0A0A0A] text-zinc-100 selection:bg-orange-500/30 selection:text-orange-200`}>
+    <html lang="en" className={`${inter.variable} ${GeistMono.variable} ${GeistPixelSquare.variable}`}>
+      <body className={`${inter.className} antialiased bg-[#0A0A0A] text-zinc-100 selection:bg-orange-500/30 selection:text-orange-200`}>
         {children}
         <FloatingNav />
         {/* Noise Grain Overlay */}

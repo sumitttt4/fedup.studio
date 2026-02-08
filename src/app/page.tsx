@@ -57,12 +57,12 @@ export default function Home() {
       {/* Mobile Layout: Stacked */}
       <div className="md:hidden">
         {/* Mobile Header */}
-        <header className="fixed top-0 left-0 right-0 z-50 px-6 py-4 bg-[#0A0A0A]/80 backdrop-blur-lg border-b border-white/5">
+        <header className="fixed top-0 left-0 right-0 z-50 px-6 py-4 bg-[#0A0A0A]/80 backdrop-blur-lg border-b border-white/5" style={{ fontFamily: 'var(--font-geist-pixel-square)' }}>
           <div className="flex items-center justify-between">
-            <span className="text-lg font-bold text-white">fedup.</span>
+            <span className="text-xs uppercase tracking-widest text-white">fedup.</span>
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-medium text-zinc-900"
+              className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-[10px] uppercase text-zinc-900 hover:bg-zinc-200 transition-colors"
             >
               Book a Call
             </a>
@@ -90,14 +90,14 @@ export default function Home() {
             </div>
 
             {/* Headline */}
-            <h1 className="text-3xl leading-[1.1] mb-6 tracking-normal">
-              <span className="font-medium text-white block">
+            <h1 className="text-3xl leading-[1.3] mb-6 tracking-wide" style={{ fontFamily: 'var(--font-geist-pixel-square)' }}>
+              <span className="text-white block">
                 Fedup with
               </span>
-              <span className="font-medium text-white block">
+              <span className="text-white block">
                 boring designs?
               </span>
-              <span className="text-zinc-500 block mt-2 text-lg">
+              <span className="text-zinc-500 block mt-4 text-xs tracking-normal">
                 We build premium templates, components & custom software.
               </span>
             </h1>
