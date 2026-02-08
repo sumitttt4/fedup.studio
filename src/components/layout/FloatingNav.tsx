@@ -32,7 +32,7 @@ export function FloatingNav() {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed bottom-8 left-1/2 -translate-x-1/2 md:translate-x-0 md:bottom-auto md:top-6 md:left-6 z-50 w-[90%] md:w-auto max-w-2xl"
+            className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 w-[90%] md:w-auto max-w-3xl"
             style={{ fontFamily: 'var(--font-geist-pixel-square)' }}
         >
             <div className="flex items-center h-12 bg-[#0A0A0A] border border-white/10 rounded-full shadow-2xl overflow-hidden backdrop-blur-md">

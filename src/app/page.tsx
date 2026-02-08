@@ -1,22 +1,31 @@
 'use client';
 
+import { RealWorldPreview } from '@/components/showcase/RealWorldPreview';
 import { LeftPanel } from '@/components/layout/LeftPanel';
 import { BentoGrid } from '@/components/showcase/BentoGrid';
 import { HalftoneFooter } from '@/components/layout/HalftoneFooter';
 import { motion } from 'framer-motion';
+import { GeistGridBackground } from '@/components/layout/GeistGridBackground';
+import { Header } from '@/components/layout/Header';
 
 export default function Home() {
   return (
     <main className="relative min-h-screen bg-[#0A0A0A]">
+      <GeistGridBackground />
+      <Header />
+
       {/* Desktop Layout: Split Screen */}
-      <div className="hidden md:flex min-h-screen">
+      <div className="hidden md:flex min-h-screen pt-[72px]">
         {/* Left Panel - Sticky (35%) */}
-        <div className="w-[35%] min-w-[360px] max-w-[480px] sticky top-0 h-screen border-r border-white/5">
+        <div className="w-[35%] min-w-[360px] max-w-[480px] sticky top-[72px] h-[calc(100vh-72px)] border-r border-dashed border-white/10">
           <LeftPanel />
         </div>
 
         {/* Right Panel - Scrollable (65%) */}
-        <div className="flex-1 overflow-y-auto">
+        <div className="flex-1 overflow-y-auto p-8">
+          {/* Real World Preview Showcase */}
+          <RealWorldPreview />
+
           <BentoGrid />
 
           {/* Contact Section */}
@@ -55,22 +64,10 @@ export default function Home() {
       </div>
 
       {/* Mobile Layout: Stacked */}
-      <div className="md:hidden">
-        {/* Mobile Header */}
-        <header className="fixed top-0 left-0 right-0 z-50 px-6 py-4 bg-[#0A0A0A]/80 backdrop-blur-lg border-b border-white/5" style={{ fontFamily: 'var(--font-geist-pixel-square)' }}>
-          <div className="flex items-center justify-between">
-            <span className="text-xs uppercase tracking-widest text-white">fedup.</span>
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-[10px] uppercase text-zinc-900 hover:bg-zinc-200 transition-colors"
-            >
-              Book a Call
-            </a>
-          </div>
-        </header>
+      <div className="md:hidden pt-[72px]"> {/* Added pt-[72px] to push mobile content down below fixed header */}
 
         {/* Mobile Content */}
-        <div className="pt-20 px-6">
+        <div className="px-6">
           {/* Mobile Left Panel Content */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -104,15 +101,12 @@ export default function Home() {
 
             {/* CTAs */}
             <div className="flex flex-wrap gap-3 mb-6">
-              <a href="#contact" className="inline-flex items-center gap-2 rounded-full bg-zinc-900 border border-zinc-700 px-4 py-2 text-sm font-medium text-white">
-                <svg className="h-4 w-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
+              <a href="#contact" className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-[10px] uppercase tracking-wide text-zinc-900 hover:bg-zinc-200 transition-colors" style={{ fontFamily: 'var(--font-geist-pixel-square)' }}>
                 Book an Intro Call
               </a>
-              <a href="#work" className="inline-flex items-center gap-2 rounded-full border border-zinc-700 px-4 py-2 text-sm text-zinc-300">
-                <span className="h-2 w-2 rounded-full bg-red-500" />
-                Check Our works
+              <a href="#work" className="inline-flex items-center gap-2 rounded-full border border-zinc-700 px-5 py-3 text-[10px] uppercase tracking-wide text-zinc-300 hover:bg-zinc-800/50 transition-colors" style={{ fontFamily: 'var(--font-geist-pixel-square)' }}>
+                <span className="h-1.5 w-1.5 rounded-full bg-red-500" />
+                Check Our work
               </a>
             </div>
 
@@ -125,6 +119,11 @@ export default function Home() {
               ))}
             </div>
           </motion.div>
+
+          {/* Real World Preview Showcase */}
+          <section className="mb-12">
+            <RealWorldPreview />
+          </section>
 
           {/* Mobile Bento Grid */}
           <BentoGrid />
