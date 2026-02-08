@@ -14,9 +14,6 @@ export const metadata: Metadata = {
     description: "Premium Design Engineering Lab. Illustrated + Motion-First Design for Startups, SaaS & Modern Products.",
     type: "website",
   },
-  icons: {
-    icon: '/icon.svg',
-  },
 };
 
 import { FloatingNav } from "@/components/layout/FloatingNav";

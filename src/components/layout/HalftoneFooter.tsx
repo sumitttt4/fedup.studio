@@ -8,8 +8,8 @@ interface HalftoneFooterProps {
     imageSrc?: string;
 }
 
-// Dot color palette - warm copper/peach tones
-const DOT_COLORS = ['#C4876E', '#D4A574', '#E8C5A0'];
+// Dot color palette - vivid red/gold/white tones
+const DOT_COLORS = ['#FF3333', '#FFD700', '#F0F0F0'];
 
 export function HalftoneFooter({
     text = 'Fedup',
@@ -33,9 +33,9 @@ export function HalftoneFooter({
     const springY = useSpring(mouseY, { stiffness: 150, damping: 20 });
 
     // Grid settings
-    const DOT_SPACING = 5;
-    const DOT_BASE_RADIUS = 2;
-    const MOUSE_RADIUS = 180;
+    const DOT_SPACING = isMobile ? 4 : 5;
+    const DOT_BASE_RADIUS = isMobile ? 1.5 : 2;
+    const MOUSE_RADIUS = isMobile ? 120 : 180;
 
     // Load image
     useEffect(() => {
@@ -80,15 +80,20 @@ export function HalftoneFooter({
         const fontFamily = computedStyle.fontFamily;
 
         // Draw text
-        const fontSize = Math.min(width * 0.22, height * 0.6);
+        const fontSize = isMobile
+            ? Math.min(width * 0.35, height * 0.5)
+            : Math.min(width * 0.22, height * 0.6);
+
         ctx.font = `bold ${fontSize}px ${fontFamily}`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillStyle = '#FFFFFF';
-        ctx.fillText(text, width / 2, height / 2 - 40);
+
+        const yOffset = isMobile ? 0 : -40;
+        ctx.fillText(text, width / 2, height / 2 + yOffset);
 
         return ctx.getImageData(0, 0, width, height);
-    }, [text]);
+    }, [text, isMobile]);
 
     // Draw halftone dots
     const drawHalftoneDots = useCallback((
@@ -111,8 +116,8 @@ export function HalftoneFooter({
                     const variation = Math.sin(x * 0.1) * Math.cos(y * 0.1) * 0.5;
                     const radius = DOT_BASE_RADIUS + variation;
 
-                    // Pick color based on position
-                    const colorIndex = (Math.floor(x / 20) + Math.floor(y / 20)) % DOT_COLORS.length;
+                    // Pick color based on position - high frequency pattern
+                    const colorIndex = (Math.floor(x / DOT_SPACING) + Math.floor(y / DOT_SPACING)) % DOT_COLORS.length;
                     ctx.fillStyle = DOT_COLORS[colorIndex];
 
                     ctx.beginPath();
@@ -121,7 +126,7 @@ export function HalftoneFooter({
                 }
             }
         }
-    }, []);
+    }, [DOT_SPACING, DOT_BASE_RADIUS]);
 
     // Draw reveal layer with mouse mask
     const drawRevealLayer = useCallback((

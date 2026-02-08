@@ -29,17 +29,19 @@ export function FloatingNav() {
 
     return (
         <motion.div
-            initial={{ y: -100, opacity: 0 }}
+            initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed top-6 left-6 z-50 w-auto max-w-2xl"
+            className="fixed bottom-8 left-1/2 -translate-x-1/2 md:translate-x-0 md:bottom-auto md:top-6 md:left-6 z-50 w-[90%] md:w-auto max-w-2xl"
             style={{ fontFamily: 'var(--font-geist-pixel-square)' }}
         >
             <div className="flex items-center h-12 bg-[#0A0A0A] border border-white/10 rounded-full shadow-2xl overflow-hidden backdrop-blur-md">
 
                 {/* Logo Section */}
                 <div className="pl-5 pr-4 flex items-center gap-2 shrink-0">
-                    <img src="/logo.svg" alt="Fedup Studio Logo" className="w-6 h-6 object-contain" />
+                    <div className="w-4 h-4 rounded-full bg-white flex items-center justify-center">
+                        <div className="w-1.5 h-1.5 rounded-full bg-black" />
+                    </div>
                     <span className="text-white tracking-widest text-xs uppercase">fedup.</span>
                 </div>
 
