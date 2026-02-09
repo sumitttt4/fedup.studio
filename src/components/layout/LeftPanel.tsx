@@ -1,6 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { ShimmerButton } from '@/components/ui/ShimmerButton';
+import { MovingBorderButton } from '@/components/ui/MovingBorderButton';
 
 const containerVariants = {
     hidden: { opacity: 0 },
@@ -103,12 +105,14 @@ export function LeftPanel() {
                 <span className="text-sm text-zinc-500">
                     From <span className="font-medium text-white">$3,000</span>/mo
                 </span>
-                <a
+                <MovingBorderButton
                     href="#pricing"
-                    className="inline-flex items-center rounded-full border border-zinc-700 hover:border-zinc-500 bg-transparent hover:bg-zinc-800/50 px-4 py-1.5 text-xs font-medium text-zinc-300 transition-all duration-200"
+                    className="px-4 py-1.5 text-xs font-medium text-zinc-300"
+                    borderColor="rgba(255, 255, 255, 0.4)"
+                    duration={4000}
                 >
                     Explore Pricing
-                </a>
+                </MovingBorderButton>
             </motion.div>
 
             <motion.div variants={itemVariants} className="mb-10">
@@ -128,22 +132,25 @@ export function LeftPanel() {
             </motion.div>
 
             {/* CTA Buttons */}
-            <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-3 mb-10">
-                <a
+            <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-4 mb-10">
+                <ShimmerButton
                     href="#contact"
-                    className="inline-flex items-center gap-2.5 rounded-full bg-white px-6 py-3 text-[12px] uppercase tracking-wide text-zinc-900 hover:bg-zinc-200 transition-all duration-200"
-                    style={{ fontFamily: 'var(--font-geist-pixel-square)' }}
+                    className="px-7 py-3.5 text-[12px] uppercase tracking-wide text-zinc-900 font-medium"
+                    shimmerColor="rgba(0,0,0,0.08)"
+                    background="rgba(255,255,255,1)"
+                    enableShadow={true}
                 >
-                    Book a Call
-                </a>
-                <a
+                    <span style={{ fontFamily: 'var(--font-geist-pixel-square)' }}>Book a Call</span>
+                </ShimmerButton>
+                <MovingBorderButton
                     href="#work"
-                    className="group inline-flex items-center gap-2.5 rounded-full border border-zinc-700 hover:border-zinc-500 px-6 py-3 text-[12px] uppercase tracking-wide text-zinc-300 hover:bg-zinc-800/50 transition-all duration-200"
-                    style={{ fontFamily: 'var(--font-geist-pixel-square)' }}
+                    className="px-6 py-3 text-[12px] uppercase tracking-wide text-zinc-300"
+                    borderColor="rgba(239, 68, 68, 0.7)"
+                    duration={3000}
                 >
                     <span className="h-1.5 w-1.5 rounded-full bg-red-500" />
-                    Check Our work
-                </a>
+                    <span style={{ fontFamily: 'var(--font-geist-pixel-square)' }}>Check Our work</span>
+                </MovingBorderButton>
             </motion.div>
 
             {/* Service Tags */}

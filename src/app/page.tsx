@@ -7,6 +7,8 @@ import { HalftoneFooter } from '@/components/layout/HalftoneFooter';
 import { motion } from 'framer-motion';
 import { GeistGridBackground } from '@/components/layout/GeistGridBackground';
 import { Header } from '@/components/layout/Header';
+import { ShimmerButton } from '@/components/ui/ShimmerButton';
+import { MovingBorderButton } from '@/components/ui/MovingBorderButton';
 
 export default function Home() {
   return (
@@ -46,15 +48,17 @@ export default function Home() {
               <p className="text-lg text-zinc-400 mb-10">
                 Book a 15-minute call to discuss your project. No commitment, just conversation.
               </p>
-              <a
+              <ShimmerButton
                 href="mailto:hello@fedup.studio"
-                className="inline-flex items-center gap-3 rounded-full bg-white px-8 py-4 font-medium text-zinc-900 hover:bg-zinc-100 transition-colors"
+                className="px-8 py-4 font-medium text-zinc-900 gap-3"
+                shimmerColor="rgba(0,0,0,0.08)"
+                background="rgba(255,255,255,1)"
               >
                 hello@fedup.studio
                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
-              </a>
+              </ShimmerButton>
             </motion.div>
           </section>
 
@@ -100,14 +104,25 @@ export default function Home() {
             </h1>
 
             {/* CTAs */}
-            <div className="flex flex-wrap gap-3 mb-6">
-              <a href="#contact" className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-[10px] uppercase tracking-wide text-zinc-900 hover:bg-zinc-200 transition-colors" style={{ fontFamily: 'var(--font-geist-pixel-square)' }}>
-                Book an Intro Call
-              </a>
-              <a href="#work" className="inline-flex items-center gap-2 rounded-full border border-zinc-700 px-5 py-3 text-[10px] uppercase tracking-wide text-zinc-300 hover:bg-zinc-800/50 transition-colors" style={{ fontFamily: 'var(--font-geist-pixel-square)' }}>
+            <div className="flex flex-wrap gap-4 mb-6">
+              <ShimmerButton
+                href="#contact"
+                className="px-6 py-3 text-[10px] uppercase tracking-wide text-zinc-900 font-medium"
+                shimmerColor="rgba(0,0,0,0.08)"
+                background="rgba(255,255,255,1)"
+                enableShadow={true}
+              >
+                <span style={{ fontFamily: 'var(--font-geist-pixel-square)' }}>Book an Intro Call</span>
+              </ShimmerButton>
+              <MovingBorderButton
+                href="#work"
+                className="px-5 py-3 text-[10px] uppercase tracking-wide text-zinc-300"
+                borderColor="rgba(239, 68, 68, 0.7)"
+                duration={3000}
+              >
                 <span className="h-1.5 w-1.5 rounded-full bg-red-500" />
-                Check Our work
-              </a>
+                <span style={{ fontFamily: 'var(--font-geist-pixel-square)' }}>Check Our work</span>
+              </MovingBorderButton>
             </div>
 
             {/* Service Tags */}
@@ -136,15 +151,17 @@ export default function Home() {
             <p className="text-zinc-400 mb-6">
               Book a call to discuss your project.
             </p>
-            <a
+            <ShimmerButton
               href="mailto:hello@fedup.studio"
-              className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 font-medium text-zinc-900"
+              className="px-6 py-3 font-medium text-zinc-900 gap-2"
+              shimmerColor="rgba(0,0,0,0.08)"
+              background="rgba(255,255,255,1)"
             >
               hello@fedup.studio
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
-            </a>
+            </ShimmerButton>
           </section>
 
           {/* Halftone Footer */}

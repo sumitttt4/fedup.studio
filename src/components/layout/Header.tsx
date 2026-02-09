@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { ShimmerButton } from '@/components/ui/ShimmerButton';
 
 export function Header() {
     const [time, setTime] = useState("");
@@ -42,12 +43,14 @@ export function Header() {
                     <span className="hidden md:block text-[10px] text-zinc-500 tracking-wider">
                         {time}
                     </span>
-                    <a
+                    <ShimmerButton
                         href="mailto:hello@fedup.studio"
-                        className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-[10px] uppercase text-zinc-900 hover:bg-zinc-200 transition-colors"
+                        className="px-5 py-2.5 text-[10px] uppercase tracking-wide text-zinc-900 font-medium"
+                        shimmerColor="rgba(0,0,0,0.08)"
+                        background="rgba(255,255,255,1)"
                     >
                         Book a Call
-                    </a>
+                    </ShimmerButton>
                 </div>
             </div>
         </header>

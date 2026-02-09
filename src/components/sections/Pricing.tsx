@@ -1,6 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { ShimmerButton } from '@/components/ui/ShimmerButton';
+import { MovingBorderButton } from '@/components/ui/MovingBorderButton';
 
 export function Pricing() {
     return (
@@ -194,13 +196,26 @@ function PricingCard({ title, price, period, description, features, highlight = 
                 ))}
             </ul>
 
-            <button className={`w-full py-4 rounded-xl text-xs uppercase tracking-widest font-bold transition-all mt-auto ${highlight
-                    ? 'bg-white text-black hover:bg-zinc-200 shadow-lg'
-                    : 'bg-zinc-950 border border-white/10 text-white hover:bg-zinc-800'
-                }`} style={{ fontFamily: 'var(--font-geist-pixel-square)' }}>
-                Get Started
-                <span className="ml-2">→</span>
-            </button>
+            {highlight ? (
+                <ShimmerButton
+                    className="w-full py-4 text-xs uppercase tracking-widest font-bold text-black"
+                    shimmerColor="rgba(0,0,0,0.08)"
+                    background="rgba(255,255,255,1)"
+                    borderRadius="0.75rem"
+                    enableShadow={true}
+                >
+                    <span style={{ fontFamily: 'var(--font-geist-pixel-square)' }}>Get Started <span className="ml-2">→</span></span>
+                </ShimmerButton>
+            ) : (
+                <MovingBorderButton
+                    className="w-full py-4 text-xs uppercase tracking-widest font-bold text-white"
+                    borderColor="rgba(255, 255, 255, 0.4)"
+                    duration={4000}
+                    borderRadius="0.75rem"
+                >
+                    <span style={{ fontFamily: 'var(--font-geist-pixel-square)' }}>Get Started <span className="ml-2">→</span></span>
+                </MovingBorderButton>
+            )}
         </motion.div>
     );
 }
@@ -229,9 +244,14 @@ function AddonCard({ title, price, description }: any) {
                 {description}
             </p>
 
-            <button className="w-full py-2 mt-2 rounded-lg bg-white/5 hover:bg-white/10 text-[10px] uppercase tracking-widest text-zinc-300 transition-colors border border-white/5 group-hover:border-white/10">
+            <MovingBorderButton
+                className="w-full py-2 mt-2 text-[10px] uppercase tracking-widest text-zinc-300"
+                borderColor="rgba(255, 255, 255, 0.25)"
+                duration={5000}
+                borderRadius="0.5rem"
+            >
                 + Add to Plan
-            </button>
+            </MovingBorderButton>
         </motion.div>
     );
 }

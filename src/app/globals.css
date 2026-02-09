@@ -75,6 +75,20 @@ body {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
+/* Shimmer sweep animation */
+@keyframes shimmer-sweep {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.shimmer-sweep {
+  animation: shimmer-sweep 3s ease-in-out infinite;
+}
+
 /* Gradient border effect */
 .gradient-border {
   position: relative;
