@@ -17,7 +17,7 @@ function BentoCard({ children, className = '', delay = 0 }: BentoCardProps) {
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.5, delay, ease: [0.25, 0.4, 0.25, 1] as const }}
             whileHover={{ scale: 1.02 }}
-            className={`bg-[#141414] border border-white/10 rounded-2xl overflow-hidden transition-shadow duration-300 hover:shadow-xl hover:shadow-black/20 ${className}`}
+            className={`ds-card overflow-hidden transition-shadow duration-300 hover:shadow-xl hover:shadow-black/20 ${className}`}
         >
             {children}
         </motion.div>
@@ -35,7 +35,7 @@ function DashboardCard() {
                     </div>
                     <span className="text-sm font-medium text-white">AgentOps</span>
                 </div>
-                <span className="text-zinc-500 text-xs">Dashboard</span>
+                <span className="ds-caption text-zinc-400">Dashboard</span>
             </div>
             <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl p-4 mb-4">
                 <p className="text-xs text-blue-200 mb-1">Overview Panel</p>
@@ -60,15 +60,15 @@ function DashboardCard() {
             <div className="grid grid-cols-3 gap-2 text-center">
                 <div className="bg-zinc-800/50 rounded-lg p-2">
                     <p className="text-lg font-semibold text-white">12.8k</p>
-                    <p className="text-[10px] text-zinc-500">Tickets</p>
+                    <p className="text-[10px] text-zinc-400">Tickets</p>
                 </div>
                 <div className="bg-zinc-800/50 rounded-lg p-2">
                     <p className="text-lg font-semibold text-white">1m 45s</p>
-                    <p className="text-[10px] text-zinc-500">Response</p>
+                    <p className="text-[10px] text-zinc-400">Response</p>
                 </div>
                 <div className="bg-zinc-800/50 rounded-lg p-2">
                     <p className="text-lg font-semibold text-white">4.7/5</p>
-                    <p className="text-[10px] text-zinc-500">Score</p>
+                    <p className="text-[10px] text-zinc-400">Score</p>
                 </div>
             </div>
         </BentoCard>
@@ -83,10 +83,10 @@ function LogoCard() {
                 <div className="h-8 w-8 rounded-lg bg-orange-500 flex items-center justify-center">
                     <span className="text-white font-bold">▲</span>
                 </div>
-                <span className="text-zinc-500 text-xs">LOGO</span>
+                <span className="ds-caption text-zinc-400">Logo</span>
             </div>
             <h3 className="text-2xl font-bold text-white mb-1">Glyph</h3>
-            <p className="text-zinc-500 text-xs">Brand Identity</p>
+            <p className="ds-body text-zinc-300">Brand Identity</p>
         </BentoCard>
     );
 }
@@ -112,7 +112,7 @@ function TypographyCard() {
 function PaletteCard() {
     return (
         <BentoCard className="p-5" delay={0.2}>
-            <span className="text-zinc-500 text-xs block mb-3">PALETTE</span>
+            <span className="ds-caption mb-3 block text-zinc-400">Palette</span>
             <div className="flex gap-2">
                 <div className="flex-1 aspect-square rounded-xl bg-orange-500" />
                 <div className="flex-1 aspect-square rounded-xl bg-zinc-900 border border-zinc-700" />
@@ -134,7 +134,8 @@ function StatsCard() {
                     <span className="text-orange-500 text-lg">◈</span>
                 </div>
             </div>
-            <p className="text-zinc-500 text-xs">STARS</p>
+            <p className="ds-caption text-zinc-400">Stars</p>
+            <p className="mt-2 text-2xl font-bold text-[#c84307]">98.2%</p>
         </BentoCard>
     );
 }
@@ -144,10 +145,10 @@ function AnalyticsCard() {
     return (
         <BentoCard className="p-5" delay={0.3}>
             <div className="flex items-center justify-between mb-4">
-                <span className="text-zinc-500 text-xs">Total Revenue</span>
-                <span className="text-zinc-500">↗</span>
+                <span className="text-zinc-400 text-xs">Total Revenue</span>
+                <span className="text-zinc-400">↗</span>
             </div>
-            <p className="text-3xl font-bold text-white mb-1">12.8k<span className="text-sm text-zinc-500 ml-1">+24%</span></p>
+            <p className="text-3xl font-bold text-white mb-1">12.8k<span className="text-sm text-zinc-400 ml-1">+24%</span></p>
             <div className="flex items-end gap-1 h-16 mt-4">
                 {[40, 60, 45, 80, 55, 90, 70, 85, 95, 75, 88, 100].map((h, i) => (
                     <div
@@ -166,10 +167,10 @@ function TimeCard() {
     return (
         <BentoCard className="p-5" delay={0.35}>
             <div className="flex items-center justify-between mb-3">
-                <span className="text-zinc-500 text-xs">Avg. Response</span>
-                <span className="text-zinc-500">↗</span>
+                <span className="text-zinc-400 text-xs">Avg. Response</span>
+                <span className="text-zinc-400">↗</span>
             </div>
-            <p className="text-2xl font-bold text-white">1m 45<span className="text-sm text-zinc-500">s</span></p>
+            <p className="text-2xl font-bold text-white">1m 45<span className="text-sm text-zinc-400">s</span></p>
             <div className="mt-4 relative h-20 flex items-center justify-center">
                 <svg className="w-full h-16" viewBox="0 0 120 40">
                     <path
@@ -197,7 +198,7 @@ function GaugeCard() {
     return (
         <BentoCard className="p-5" delay={0.4}>
             <div className="flex items-center justify-between mb-3">
-                <span className="text-zinc-500 text-xs">System Output</span>
+                <span className="ds-caption text-zinc-400">System Output</span>
             </div>
             <div className="flex justify-center py-4">
                 <div className="relative">
@@ -221,7 +222,7 @@ function GaugeCard() {
                     </svg>
                     <div className="absolute bottom-0 left-1/2 -translate-x-1/2 text-center">
                         <span className="text-xl font-bold text-white">312</span>
-                        <span className="text-xs text-zinc-500 block">kW</span>
+                        <span className="text-xs text-zinc-400 block">kW</span>
                     </div>
                 </div>
             </div>
@@ -234,8 +235,8 @@ function BatteryCard() {
     return (
         <BentoCard className="p-5" delay={0.45}>
             <div className="flex items-center justify-between mb-3">
-                <span className="text-zinc-500 text-xs">Battery</span>
-                <span className="text-zinc-500">↗</span>
+                <span className="ds-caption text-zinc-400">Battery</span>
+                <span className="text-zinc-400">↗</span>
             </div>
             <p className="text-xl font-bold text-white mb-3">31 kW</p>
             <div className="flex gap-1">
@@ -250,7 +251,7 @@ function BatteryCard() {
 
 export function BentoGrid() {
     return (
-        <div className="p-6 lg:p-8 xl:p-12">
+        <div className="px-6 py-16 md:px-8 md:py-24 xl:px-12">
             {/* First Bento Section */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
                 {/* Tall Dashboard Card */}
@@ -283,7 +284,7 @@ export function BentoGrid() {
                 <BatteryCard />
                 <BentoCard className="p-5" delay={0.5}>
                     <div className="flex items-center justify-between mb-3">
-                        <span className="text-zinc-500 text-xs">Live Feed</span>
+                        <span className="ds-caption text-zinc-400">Live Feed</span>
                         <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
                     </div>
                     <div className="space-y-2">
@@ -309,8 +310,8 @@ export function BentoGrid() {
                 className="mt-16 mb-8"
             >
                 <div className="flex items-center justify-between mb-6">
-                    <h3 className="text-xl font-medium text-white" style={{ fontFamily: 'var(--font-geist-pixel-square)' }}>Selected Projects</h3>
-                    <a href="#work" className="text-xs uppercase tracking-wider text-zinc-500 hover:text-white transition-colors">View All →</a>
+                    <h3 className="ds-heading-section font-medium text-white" style={{ fontFamily: 'var(--font-geist-pixel-square)' }}>Selected Projects</h3>
+                    <a href="#work" className="ds-caption rounded-full px-3 py-2 text-zinc-300 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c84307] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0A0A]">View All →</a>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
@@ -333,7 +334,7 @@ export function BentoGrid() {
                             </div>
                         </div>
                         <h4 className="text-white font-medium/90 text-sm tracking-wide" style={{ fontFamily: 'var(--font-geist-pixel-square)' }}>AgentOps</h4>
-                        <p className="text-zinc-500 text-[10px] mt-1 opacity-80">AI Agent Observability • Next.js</p>
+                        <p className="text-zinc-400 text-[10px] mt-1 opacity-80">AI Agent Observability • Next.js</p>
                     </BentoCard>
 
                     <BentoCard className="p-4 bg-zinc-900/50 group cursor-pointer overflow-hidden" delay={0.2}>
@@ -355,7 +356,7 @@ export function BentoGrid() {
                             </div>
                         </div>
                         <h4 className="text-white font-medium/90 text-sm tracking-wide" style={{ fontFamily: 'var(--font-geist-pixel-square)' }}>Fedup Identity</h4>
-                        <p className="text-zinc-500 text-[10px] mt-1 opacity-80">Brand System • Typography</p>
+                        <p className="text-zinc-400 text-[10px] mt-1 opacity-80">Brand System • Typography</p>
                     </BentoCard>
                 </div>
             </motion.div>

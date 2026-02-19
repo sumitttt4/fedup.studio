@@ -25,7 +25,7 @@ export function ShimmerButton({
 
     const content = (
         <motion.span
-            className={`group relative z-0 inline-flex cursor-pointer items-center justify-center overflow-hidden ${className}`}
+            className={`group relative z-0 inline-flex min-h-11 cursor-pointer items-center justify-center overflow-hidden ${className}`}
             style={{
                 background,
                 borderRadius,
@@ -75,7 +75,14 @@ export function ShimmerButton({
     );
 
     if (href) {
-        return <a href={href}>{content}</a>;
+        return (
+            <a
+                href={href}
+                className="inline-flex rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c84307] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0A0A0A]"
+            >
+                {content}
+            </a>
+        );
     }
     return content;
 }

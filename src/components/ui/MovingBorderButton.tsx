@@ -48,7 +48,7 @@ export function MovingBorderButton({
     const content = (
         <div
             ref={containerRef}
-            className={`relative overflow-hidden p-[1px] ${containerClassName}`}
+            className={`relative overflow-hidden rounded-full p-[1px] focus-within:ring-2 focus-within:ring-[#c84307] focus-within:ring-offset-2 focus-within:ring-offset-[#0A0A0A] ${containerClassName}`}
             style={{ borderRadius }}
         >
             {/* Animated border gradient */}
@@ -62,7 +62,7 @@ export function MovingBorderButton({
 
             {/* Inner content with background */}
             <motion.span
-                className={`relative z-10 flex cursor-pointer items-center justify-center gap-2 bg-[#0A0A0A] backdrop-blur-sm ${className}`}
+                className={`relative z-10 flex min-h-11 cursor-pointer items-center justify-center gap-2 bg-[#0A0A0A] backdrop-blur-sm ${className}`}
                 style={{ borderRadius }}
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
@@ -74,7 +74,14 @@ export function MovingBorderButton({
     );
 
     if (href) {
-        return <a href={href}>{content}</a>;
+        return (
+            <a
+                href={href}
+                className="inline-flex rounded-full focus-visible:outline-none"
+            >
+                {content}
+            </a>
+        );
     }
     return content;
 }

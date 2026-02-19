@@ -11,7 +11,7 @@ export function RealWorldPreview() {
                 whileHover={{ scale: 1.02, y: -5 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="relative w-full rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl cursor-pointer bg-zinc-900"
+                className="ds-card-hero relative w-full cursor-pointer overflow-hidden shadow-2xl"
             >
                 {/* 
                   PLACEHOLDER FOR USER SCREENSHOT 
