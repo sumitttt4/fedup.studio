@@ -309,15 +309,14 @@ export function HalftoneFooter({
     }, [isImageLoaded, dimensions, springX, springY, getTextPixelData, drawRevealLayer]);
 
     return (
-        <footer
+        <div
             ref={containerRef}
             onMouseMove={handleMouseMove}
             onTouchMove={handleTouchMove}
             className="relative w-full overflow-hidden"
             style={{
-                height: '65vh',
-                minHeight: '400px',
-                backgroundColor: '#0A0A0A',
+                height: '50vh',
+                minHeight: '300px',
                 fontFamily: 'var(--font-geist-pixel-square)', // Apply pixel font here
             }}
         >
@@ -341,19 +340,6 @@ export function HalftoneFooter({
                 style={{ pointerEvents: 'none' }}
             />
 
-            {/* Footer text */}
-            <motion.div
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.5, duration: 0.8 }}
-                className="absolute bottom-8 left-0 right-0 text-center"
-            >
-                <p className="text-sm" style={{ color: '#6B5A4E' }}>
-                    Made with <span className="text-red-400">♥</span> in India
-                </p>
-            </motion.div>
-
             {/* Mobile touch hint */}
             {isMobile && (
                 <motion.div
@@ -367,6 +353,6 @@ export function HalftoneFooter({
                     </p>
                 </motion.div>
             )}
-        </footer>
+        </div>
     );
 }
