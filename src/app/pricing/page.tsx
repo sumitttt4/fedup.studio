@@ -58,8 +58,8 @@ export default function PricingPage() {
             <span className="h-4 w-4 rounded-sm bg-[#c84307]" />
             Fedup Studio
           </Link>
-          <a href={MEETING_LINK} target="_blank" rel="noopener noreferrer" className="rounded-full bg-[#171717] px-5 py-2.5 text-sm font-semibold text-white">
-            Book a Call
+          <a href={MEETING_LINK} target="_blank" rel="noopener noreferrer" data-cta="book-call-pricing-header" className="rounded-full bg-[#171717] px-5 py-2.5 text-sm font-semibold text-white">
+            Book a 15-min Call
           </a>
         </div>
       </header>
@@ -108,8 +108,8 @@ export default function PricingPage() {
           <h2 className="mt-3 text-3xl font-bold tracking-tight md:text-4xl">Tell us what you&apos;re building. We&apos;ll recommend the right package.</h2>
           <p className="mt-3 max-w-2xl text-white/75">No long contracts. Clear scope, clear ownership, clear communication.</p>
           <div className="mt-6 flex flex-wrap gap-4">
-            <a href={MEETING_LINK} target="_blank" rel="noopener noreferrer" className="rounded-full bg-[#c84307] px-7 py-3.5 font-semibold text-white">
-              Book a Call
+            <a href={MEETING_LINK} target="_blank" rel="noopener noreferrer" data-cta="book-call-pricing-footer" className="rounded-full bg-[#c84307] px-7 py-3.5 font-semibold text-white">
+              Book a 15-min Call
             </a>
             <Link href="/" className="rounded-full border border-white/25 px-7 py-3.5 font-semibold">
               Back to Home
