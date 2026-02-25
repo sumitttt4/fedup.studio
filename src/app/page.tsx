@@ -405,6 +405,24 @@ export default function Home() {
         </section>
 
 
+        {/* Pricing Snapshot */}
+        <section id="pricing" className="relative border-t border-black/10 py-20 px-6 lg:px-12">
+          <IntersectionNode className="-mt-[3px] -ml-[3px] left-0 top-0" />
+          <IntersectionNode className="-mt-[3px] -mr-[3px] right-0 top-0" />
+          <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#c84307]">Pricing</p>
+            <h2 className="mt-4 text-4xl md:text-5xl font-serif font-medium tracking-tight">Reasonable plans for modern teams.</h2>
+            <p className="mt-4 max-w-2xl text-black/70">Start at <span className="font-semibold text-[#171717]">$1,490</span> for launch projects, grow to <span className="font-semibold text-[#171717]">$2,990</span> for full websites, or retain us from <span className="font-semibold text-[#171717]">$1,990/mo</span>.</p>
+            <div className="mt-8 flex flex-wrap justify-center gap-4">
+              <Link href="/pricing" className="rounded bg-[#171717] px-7 py-3.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-black">
+                View full pricing
+              </Link>
+              <a href={MEETING_LINK} target="_blank" rel="noopener noreferrer" className="rounded bg-white px-7 py-3.5 text-sm font-semibold text-[#171717] shadow-sm border border-black/10 transition-colors hover:bg-black/5">
+                Get proposal
+              </a>
+            </div>
+          </div>
+        </section>
 
         {/* FAQ */}
         <section id="faq" className="relative border-t border-black/10 py-20 px-6 lg:px-12">
