@@ -1,25 +1,63 @@
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { HalftoneFooter } from '@/components/layout/HalftoneFooter';
+import { SITE } from '@/lib/site';
+
+const MEETING_LINK = SITE.meetingLink;
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: '/',
+  },
+};
+
+
+const featuredProjects = [
+  {
+    name: 'Glyph Software',
+    url: 'https://glyph.software',
+    tags: ['Design', 'Development'],
+    screenshot: 'https://image.thum.io/get/width/1200/noanimate/https://glyph.software',
+    summary:
+      'End-to-end product and marketing experience focused on clarity, performance, and a high-trust SaaS visual system.',
+  },
+  {
+    name: 'Hotel MLV Grand',
+    url: 'https://hotelmlvgrand.vercel.app/',
+    tags: ['Design', 'Development'],
+    screenshot: 'https://image.thum.io/get/width/1200/noanimate/https://hotelmlvgrand.vercel.app/',
+    summary:
+      'Hospitality website crafted for premium presentation, fast page speed, and mobile-first booking-friendly UX.',
+  },
+  {
+    name: 'Nova Dashboard',
+    url: 'https://nova-seven-sepia.vercel.app/dashboard',
+    tags: ['Dashboard UI', 'Design', 'Development'],
+    screenshot: 'https://image.thum.io/get/width/1200/noanimate/https://nova-seven-sepia.vercel.app/dashboard',
+    summary:
+      'Data-heavy dashboard designed for decision speed with a clean visual hierarchy and smooth interaction flow.',
+  },
+];
 
 const services = [
   {
     title: 'Design & Branding',
-    price: '$4,999',
+    price: '$1,490',
     description:
       'Brand identity, UI/UX, and web design systems that make your business look sharp and consistent across every customer touchpoint.',
     points: ['Brand strategy + visual direction', 'UX for conversion-first websites', 'Design systems for scale'],
   },
   {
     title: 'Development',
-    price: '$6,999',
+    price: '$2,990',
     description:
       'High-performance websites, apps, and custom products in Next.js + React, shipped fast with clean architecture.',
     points: ['Marketing websites and landing pages', 'Product interfaces and dashboards', 'Custom integrations + CMS workflows'],
   },
   {
     title: 'Marketing & Growth',
-    price: '$2,999',
+    price: '$1,990/mo',
     description:
       'Performance-led growth across paid ads, social, SEO, and content to turn attention into revenue.',
     points: ['Paid acquisition strategy', 'SEO + content planning', 'Weekly reporting and optimization'],
@@ -51,7 +89,9 @@ export default function Home() {
             <a href="#contact" className="hover:text-[#c84307] transition-colors">Contact</a>
           </nav>
           <a
-            href="mailto:hello@fedup.studio"
+            href={MEETING_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
             data-cta="book-call-header"
             className="rounded bg-[#171717] px-5 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-black"
           >
@@ -80,7 +120,9 @@ export default function Home() {
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <a
-              href="mailto:hello@fedup.studio"
+              href={MEETING_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
               data-cta="book-call-hero"
               className="rounded bg-[#171717] px-7 py-3.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-black"
             >
@@ -97,7 +139,7 @@ export default function Home() {
         </section>
 
         {/* Animated Dashboard Image Section */}
-        <section className="relative w-full border-t border-black/10 overflow-hidden group py-16 px-6 lg:px-20 flex justify-center perspective-1000">
+        <section id="work" className="relative w-full border-t border-black/10 overflow-hidden group py-16 px-6 lg:px-20 flex justify-center perspective-1000">
           <IntersectionNode className="-mt-[3px] -ml-[3px] left-0 top-0" />
           <IntersectionNode className="-mt-[3px] -mr-[3px] right-0 top-0" />
 
@@ -118,6 +160,61 @@ export default function Home() {
                 priority
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent pointer-events-none" />
+            </div>
+          </div>
+        </section>
+
+
+        {/* Featured Projects */}
+        <section className="relative border-t border-black/10 py-20 px-6 lg:px-12">
+          <IntersectionNode className="-mt-[3px] -ml-[3px] left-0 top-0" />
+          <IntersectionNode className="-mt-[3px] -mr-[3px] right-0 top-0" />
+
+          <div className="mx-auto max-w-6xl">
+            <div className="mb-12 text-center">
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#c84307]">Selected Work</p>
+              <h2 className="mt-4 text-4xl md:text-5xl font-serif font-medium tracking-tight text-[#171717]">Final showcase for design + development.</h2>
+              <p className="mx-auto mt-4 max-w-3xl text-sm md:text-base text-black/65">Each project includes a visual preview and live link so clients can instantly evaluate quality, style, and execution.</p>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {featuredProjects.map((project, idx) => (
+                <article
+                  key={project.name}
+                  className={`group rounded-2xl border border-black/10 bg-white/95 p-4 sm:p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-[#c84307]/30 ${idx === 0 ? 'md:col-span-2 lg:col-span-1' : ''}`}
+                >
+                  <a href={project.url} target="_blank" rel="noopener noreferrer" className="block">
+                    <div className="mb-5 overflow-hidden rounded-xl border border-black/10 bg-[#f5f5f5]">
+                      <img
+                        src={project.screenshot}
+                        alt={`${project.name} screenshot`}
+                        loading="lazy"
+                        className="h-48 w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                      />
+                    </div>
+                  </a>
+
+                  <div className="mb-4 flex flex-wrap items-center gap-2">
+                    {project.tags.map((tag) => (
+                      <span key={tag} className="rounded-full bg-[#c84307]/10 px-3 py-1 text-xs font-semibold text-[#c84307]">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  <h3 className="text-xl sm:text-2xl font-serif font-medium tracking-tight text-[#171717]">{project.name}</h3>
+                  <p className="mt-3 text-sm text-black/65 leading-relaxed">{project.summary}</p>
+                  <a
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#171717] underline underline-offset-4 transition-colors group-hover:text-[#c84307]"
+                  >
+                    Visit live project
+                    <span aria-hidden>↗</span>
+                  </a>
+                </article>
+              ))}
             </div>
           </div>
         </section>
@@ -192,6 +289,7 @@ export default function Home() {
           </div>
         </section>
 
+
         {/* Breathing Space */}
         <div className="w-full h-24 sm:h-32 xl:h-40 relative border-t border-black/10">
           <IntersectionNode className="-mt-[3px] -ml-[3px] left-0 top-0" />
@@ -227,7 +325,9 @@ export default function Home() {
                     ))}
                   </ul>
                   <a
-                    href="mailto:hello@fedup.studio"
+                    href={MEETING_LINK}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="w-full mt-auto rounded-xl bg-[#171717] px-4 py-4 text-sm font-semibold text-white text-center hover:bg-black transition-colors"
                   >
                     Book a 15min Call
@@ -239,9 +339,27 @@ export default function Home() {
         </section>
 
 
+        {/* Pricing Snapshot */}
+        <section id="pricing" className="relative border-t border-black/10 py-20 px-6 lg:px-12">
+          <IntersectionNode className="-mt-[3px] -ml-[3px] left-0 top-0" />
+          <IntersectionNode className="-mt-[3px] -mr-[3px] right-0 top-0" />
+          <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#c84307]">Pricing</p>
+            <h2 className="mt-4 text-4xl md:text-5xl font-serif font-medium tracking-tight">Reasonable plans for modern teams.</h2>
+            <p className="mt-4 max-w-2xl text-black/70">Start at <span className="font-semibold text-[#171717]">$1,490</span> for launch projects, grow to <span className="font-semibold text-[#171717]">$2,990</span> for full websites, or retain us from <span className="font-semibold text-[#171717]">$1,990/mo</span>.</p>
+            <div className="mt-8 flex flex-wrap justify-center gap-4">
+              <Link href="/pricing" className="rounded bg-[#171717] px-7 py-3.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-black">
+                View full pricing
+              </Link>
+              <a href={MEETING_LINK} target="_blank" rel="noopener noreferrer" className="rounded bg-white px-7 py-3.5 text-sm font-semibold text-[#171717] shadow-sm border border-black/10 transition-colors hover:bg-black/5">
+                Get proposal
+              </a>
+            </div>
+          </div>
+        </section>
 
         {/* Footer */}
-        <footer className="relative bg-[#171717] text-white overflow-hidden border-t border-black/10">
+        <footer id="contact" className="relative bg-[#171717] text-white overflow-hidden border-t border-black/10">
           <IntersectionNode className="-mt-[3px] -ml-[3px] left-0 top-0" />
           <IntersectionNode className="-mt-[3px] -mr-[3px] right-0 top-0" />
 
@@ -252,7 +370,9 @@ export default function Home() {
             <h2 className="text-4xl font-serif font-medium tracking-tight md:text-6xl mb-10">Let&apos;s build together.</h2>
             <div className="flex flex-col md:flex-row gap-4">
               <a
-                href="mailto:hello@fedup.studio"
+                href={MEETING_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="rounded-md bg-white px-8 py-4 text-sm font-semibold text-[#171717] shadow-sm transition-transform hover:scale-105"
               >
                 Book a 15min Call
