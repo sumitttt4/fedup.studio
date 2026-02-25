@@ -1,28 +1,96 @@
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { HalftoneFooter } from '@/components/layout/HalftoneFooter';
+import { SITE } from '@/lib/site';
+
+const MEETING_LINK = SITE.meetingLink;
+const SITE_HOST = SITE.domain.replace('https://', '');
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: '/',
+  },
+};
+
+
+const featuredProjects = [
+  {
+    name: 'Glyph Software',
+    url: 'https://glyph.software',
+    tags: ['Design', 'Development'],
+    screenshot: 'https://image.thum.io/get/width/1200/noanimate/https://glyph.software',
+    summary:
+      'End-to-end product and marketing experience focused on clarity, performance, and a high-trust SaaS visual system.',
+  },
+  {
+    name: 'Hotel MLV Grand',
+    url: 'https://hotelmlvgrand.vercel.app/',
+    tags: ['Design', 'Development'],
+    screenshot: 'https://image.thum.io/get/width/1200/noanimate/https://hotelmlvgrand.vercel.app/',
+    summary:
+      'Hospitality website crafted for premium presentation, fast page speed, and mobile-first booking-friendly UX.',
+  },
+  {
+    name: 'Nova Dashboard',
+    url: 'https://nova-seven-sepia.vercel.app/dashboard',
+    tags: ['Dashboard UI', 'Design', 'Development'],
+    screenshot: 'https://image.thum.io/get/width/1200/noanimate/https://nova-seven-sepia.vercel.app/dashboard',
+    summary:
+      'Data-heavy dashboard designed for decision speed with a clean visual hierarchy and smooth interaction flow.',
+  },
+];
 
 const services = [
   {
     title: 'Design & Branding',
-    price: '$4,999',
+    price: '$1,490',
     description:
       'Brand identity, UI/UX, and web design systems that make your business look sharp and consistent across every customer touchpoint.',
     points: ['Brand strategy + visual direction', 'UX for conversion-first websites', 'Design systems for scale'],
   },
   {
     title: 'Development',
-    price: '$6,999',
+    price: '$2,990',
     description:
       'High-performance websites, apps, and custom products in Next.js + React, shipped fast with clean architecture.',
     points: ['Marketing websites and landing pages', 'Product interfaces and dashboards', 'Custom integrations + CMS workflows'],
   },
   {
     title: 'Marketing & Growth',
-    price: '$2,999',
+    price: '$1,990/mo',
     description:
       'Performance-led growth across paid ads, social, SEO, and content to turn attention into revenue.',
     points: ['Paid acquisition strategy', 'SEO + content planning', 'Weekly reporting and optimization'],
+  },
+];
+
+
+const proofStats = [
+  { value: '120+', label: 'Projects delivered' },
+  { value: '24h', label: 'Average response time' },
+  { value: '10+', label: 'Years combined product experience' },
+];
+
+const trustedBrands = ['Glyph', 'Hotel MLV Grand', 'Nova', 'Duhani', 'Tripsygo', 'Drawlogix'];
+const marqueeBrands = [...trustedBrands, ...trustedBrands];
+
+const faqs = [
+  {
+    question: 'How fast can we start?',
+    answer: 'Most projects begin within 3-5 days after scope alignment and kickoff call.',
+  },
+  {
+    question: 'Do you handle both design and development?',
+    answer: 'Yes. We deliver complete design + development execution with one team and one timeline.',
+  },
+  {
+    question: 'How do revisions work?',
+    answer: 'We run collaborative weekly review cycles and iterate quickly based on agreed goals and feedback.',
+  },
+  {
+    question: 'Can you support us post-launch?',
+    answer: 'Yes, through a monthly partner plan for enhancements, experiments, and maintenance.',
   },
 ];
 
@@ -48,14 +116,17 @@ export default function Home() {
             <a href="#services" className="hover:text-[#c84307] transition-colors">Services</a>
             <a href="#work" className="hover:text-[#c84307] transition-colors">Work</a>
             <a href="#pricing" className="hover:text-[#c84307] transition-colors">Pricing</a>
+            <a href="#faq" className="hover:text-[#c84307] transition-colors">FAQ</a>
             <a href="#contact" className="hover:text-[#c84307] transition-colors">Contact</a>
           </nav>
           <a
-            href="mailto:hello@fedup.studio"
+            href={MEETING_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
             data-cta="book-call-header"
             className="rounded bg-[#171717] px-5 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-black"
           >
-            Start building
+            Book a 15-min Call
           </a>
         </div>
       </header>
@@ -80,11 +151,13 @@ export default function Home() {
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <a
-              href="mailto:hello@fedup.studio"
+              href={MEETING_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
               data-cta="book-call-hero"
               className="rounded bg-[#171717] px-7 py-3.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-black"
             >
-              Start building
+              Book a 15-min Call
             </a>
             <a
               href="#work"
@@ -97,7 +170,7 @@ export default function Home() {
         </section>
 
         {/* Animated Dashboard Image Section */}
-        <section className="relative w-full border-t border-black/10 overflow-hidden group py-16 px-6 lg:px-20 flex justify-center perspective-1000">
+        <section id="work" className="relative w-full border-t border-black/10 overflow-hidden group py-16 px-6 lg:px-20 flex justify-center perspective-1000">
           <IntersectionNode className="-mt-[3px] -ml-[3px] left-0 top-0" />
           <IntersectionNode className="-mt-[3px] -mr-[3px] right-0 top-0" />
 
@@ -122,11 +195,100 @@ export default function Home() {
           </div>
         </section>
 
+
+        {/* Featured Projects */}
+        <section className="relative border-t border-black/10 py-20 px-6 lg:px-12">
+          <IntersectionNode className="-mt-[3px] -ml-[3px] left-0 top-0" />
+          <IntersectionNode className="-mt-[3px] -mr-[3px] right-0 top-0" />
+
+          <div className="mx-auto max-w-6xl">
+            <div className="mb-12 text-center">
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#c84307]">Selected Work</p>
+              <h2 className="mt-4 text-4xl md:text-5xl font-serif font-medium tracking-tight text-[#171717]">Final showcase for design + development.</h2>
+              <p className="mx-auto mt-4 max-w-3xl text-sm md:text-base text-black/65">Each project includes a visual preview and live link so clients can instantly evaluate quality, style, and execution.</p>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {featuredProjects.map((project, idx) => (
+                <article
+                  key={project.name}
+                  className={`group rounded-2xl border border-black/10 bg-white/95 p-4 sm:p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-[#c84307]/30 ${idx === 0 ? 'md:col-span-2 lg:col-span-1' : ''}`}
+                >
+                  <a href={project.url} target="_blank" rel="noopener noreferrer" className="block">
+                    <div className="mb-5 overflow-hidden rounded-xl border border-black/10 bg-[#f5f5f5]">
+                      <img
+                        src={project.screenshot}
+                        alt={`${project.name} screenshot`}
+                        loading="lazy"
+                        className="h-48 w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                      />
+                    </div>
+                  </a>
+
+                  <div className="mb-4 flex flex-wrap items-center gap-2">
+                    {project.tags.map((tag) => (
+                      <span key={tag} className="rounded-full bg-[#c84307]/10 px-3 py-1 text-xs font-semibold text-[#c84307]">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  <h3 className="text-xl sm:text-2xl font-serif font-medium tracking-tight text-[#171717]">{project.name}</h3>
+                  <p className="mt-3 text-sm text-black/65 leading-relaxed">{project.summary}</p>
+                  <a
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#171717] underline underline-offset-4 transition-colors group-hover:text-[#c84307]"
+                  >
+                    Visit live project
+                    <span aria-hidden>↗</span>
+                  </a>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Breathing Space */}
         <div className="w-full h-24 sm:h-32 xl:h-40 relative border-t border-black/10">
           <IntersectionNode className="-mt-[3px] -ml-[3px] left-0 top-0" />
           <IntersectionNode className="-mt-[3px] -mr-[3px] right-0 top-0" />
         </div>
+
+
+        {/* Trust + Proof */}
+        <section className="relative border-t border-black/10 py-16 px-6 lg:px-12">
+          <IntersectionNode className="-mt-[3px] -ml-[3px] left-0 top-0" />
+          <IntersectionNode className="-mt-[3px] -mr-[3px] right-0 top-0" />
+
+          <div className="mx-auto max-w-6xl">
+            <div className="grid gap-4 md:grid-cols-3">
+              {proofStats.map((item) => (
+                <article key={item.label} className="rounded-2xl border border-black/10 bg-white p-6 text-center">
+                  <p className="text-3xl md:text-4xl font-serif font-medium text-[#171717]">{item.value}</p>
+                  <p className="mt-2 text-sm text-black/60 font-medium">{item.label}</p>
+                </article>
+              ))}
+            </div>
+
+            <div className="mt-10 rounded-2xl border border-black/10 bg-white px-5 py-6">
+              <p className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-black/45">Trusted by ambitious teams</p>
+              <div className="mt-4 overflow-hidden">
+                <div className="marquee-track flex items-center gap-3 sm:gap-4 pr-4">
+                  {marqueeBrands.map((brand, idx) => (
+                    <span
+                      key={`${brand}-${idx}`}
+                      className="inline-flex shrink-0 rounded-full border border-black/10 bg-[#fafafa] px-4 py-2 text-xs sm:text-sm font-semibold text-black/60"
+                    >
+                      {brand}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* Why You Will Love Us */}
         <section className="relative border-t border-black/10 py-24 flex flex-col items-center">
@@ -192,6 +354,7 @@ export default function Home() {
           </div>
         </section>
 
+
         {/* Breathing Space */}
         <div className="w-full h-24 sm:h-32 xl:h-40 relative border-t border-black/10">
           <IntersectionNode className="-mt-[3px] -ml-[3px] left-0 top-0" />
@@ -227,10 +390,13 @@ export default function Home() {
                     ))}
                   </ul>
                   <a
-                    href="mailto:hello@fedup.studio"
+                    href={MEETING_LINK}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-cta={`book-call-service-${service.title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
                     className="w-full mt-auto rounded-xl bg-[#171717] px-4 py-4 text-sm font-semibold text-white text-center hover:bg-black transition-colors"
                   >
-                    Book a 15min Call
+                    Book a 15-min Call
                   </a>
                 </div>
               </article>
@@ -240,36 +406,146 @@ export default function Home() {
 
 
 
-        {/* Footer */}
-        <footer className="relative bg-[#171717] text-white overflow-hidden border-t border-black/10">
+        {/* FAQ */}
+        <section id="faq" className="relative border-t border-black/10 py-20 px-6 lg:px-12">
           <IntersectionNode className="-mt-[3px] -ml-[3px] left-0 top-0" />
           <IntersectionNode className="-mt-[3px] -mr-[3px] right-0 top-0" />
 
-          <div className="px-6 py-20 lg:py-32 lg:px-20 text-center flex flex-col items-center z-10 relative">
-            <div className="w-16 h-16 rounded-full bg-white/5 border border-white/10 mb-8 flex items-center justify-center backdrop-blur-md">
-              <div className="w-6 h-6 rounded-sm bg-[#c84307]" />
+          <div className="mx-auto max-w-4xl">
+            <h2 className="text-4xl md:text-5xl font-serif font-medium text-center text-[#171717]">Frequently asked questions</h2>
+            <div className="mt-10 space-y-3">
+              {faqs.map((item) => (
+                <details key={item.question} className="group rounded-xl border border-black/10 bg-white p-5">
+                  <summary className="cursor-pointer list-none text-base font-semibold text-[#171717]">{item.question}</summary>
+                  <p className="mt-3 text-sm text-black/65 leading-relaxed">{item.answer}</p>
+                </details>
+              ))}
             </div>
-            <h2 className="text-4xl font-serif font-medium tracking-tight md:text-6xl mb-10">Let&apos;s build together.</h2>
-            <div className="flex flex-col md:flex-row gap-4">
+          </div>
+        </section>
+
+        {/* Book Call */}
+        <section className="relative border-t border-black/10 py-20 px-6 lg:px-12">
+          <IntersectionNode className="-mt-[3px] -ml-[3px] left-0 top-0" />
+          <IntersectionNode className="-mt-[3px] -mr-[3px] right-0 top-0" />
+
+          <div className="mx-auto max-w-4xl text-center">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#c84307]">Book a call</p>
+            <h2 className="mt-4 text-4xl md:text-5xl font-serif font-medium tracking-tight">Book a 15-min call.</h2>
+            <p className="mt-3 text-black/65">Pick a slot and we will map your fastest path to launch.</p>
+            <div className="mt-8 rounded-2xl border border-black/10 bg-white p-3 shadow-sm">
+              <iframe
+                src={`${MEETING_LINK}?embed=true`}
+                title="Book a call"
+                className="h-[640px] w-full rounded-xl"
+                loading="lazy"
+              />
               <a
-                href="mailto:hello@fedup.studio"
-                className="rounded-md bg-white px-8 py-4 text-sm font-semibold text-[#171717] shadow-sm transition-transform hover:scale-105"
+                href={MEETING_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-cta="book-call-fallback"
+                className="mt-4 inline-flex rounded-lg border border-black/15 px-5 py-2.5 text-sm font-semibold text-[#171717] hover:bg-black/5"
               >
-                Book a 15min Call
+                Open calendar in a new tab
               </a>
+            </div>
+          </div>
+        </section>
+
+        {/* Pricing Snapshot */}
+        <section id="pricing" className="relative border-t border-black/10 py-20 px-6 lg:px-12">
+          <IntersectionNode className="-mt-[3px] -ml-[3px] left-0 top-0" />
+          <IntersectionNode className="-mt-[3px] -mr-[3px] right-0 top-0" />
+          <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#c84307]">Pricing</p>
+            <h2 className="mt-4 text-4xl md:text-5xl font-serif font-medium tracking-tight">Reasonable plans for modern teams.</h2>
+            <p className="mt-4 max-w-2xl text-black/70">Start at <span className="font-semibold text-[#171717]">$1,490</span> for launch projects, grow to <span className="font-semibold text-[#171717]">$2,990</span> for full websites, or retain us from <span className="font-semibold text-[#171717]">$1,990/mo</span>.</p>
+            <div className="mt-8 flex flex-wrap justify-center gap-4">
+              <Link href="/pricing" className="rounded bg-[#171717] px-7 py-3.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-black">
+                View full pricing
+              </Link>
+              <a href={MEETING_LINK} target="_blank" rel="noopener noreferrer" data-cta="book-call-proposal" className="rounded bg-white px-7 py-3.5 text-sm font-semibold text-[#171717] shadow-sm border border-black/10 transition-colors hover:bg-black/5">
+                Get Proposal
+              </a>
+            </div>
+          </div>
+        </section>
+
+        {/* Footer */}
+        <footer id="contact" className="relative bg-[#171717] text-white overflow-hidden border-t border-black/10">
+          <IntersectionNode className="-mt-[3px] -ml-[3px] left-0 top-0" />
+          <IntersectionNode className="-mt-[3px] -mr-[3px] right-0 top-0" />
+
+          <div className="px-6 pt-16 pb-10 lg:px-20 lg:pt-24 relative z-10">
+            <div className="mx-auto max-w-6xl rounded-3xl border border-white/10 bg-white/[0.03] p-8 md:p-10 backdrop-blur-sm">
+              <div className="flex flex-col items-start justify-between gap-8 lg:flex-row">
+                <div className="max-w-xl">
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#c84307]">Let&apos;s build together</p>
+                  <h2 className="mt-4 text-3xl md:text-5xl font-serif font-medium tracking-tight">Ready to launch a high-converting digital presence?</h2>
+                  <p className="mt-4 text-sm md:text-base text-white/75">We design and build premium web experiences for founders and teams who need speed, clarity, and execution.</p>
+                </div>
+                <div className="flex flex-col gap-3 w-full sm:w-auto">
+                  <a
+                    href={MEETING_LINK}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="rounded-xl bg-white px-7 py-3.5 text-sm font-semibold text-[#171717] text-center transition hover:opacity-90"
+                  >
+                    Book a 15-min Call
+                  </a>
+                  <Link
+                    href="/pricing"
+                    className="rounded-xl border border-white/20 px-7 py-3.5 text-sm font-semibold text-center hover:bg-white/10 transition"
+                  >
+                    View Pricing
+                  </Link>
+                </div>
+              </div>
+
+              <div className="mt-10 grid gap-8 border-t border-white/10 pt-8 md:grid-cols-3">
+                <div>
+                  <div className="mb-4 flex items-center gap-2">
+                    <div className="h-4 w-4 rounded-sm bg-[#c84307]" />
+                    <span className="text-lg font-bold tracking-tight">Fedup Studio</span>
+                  </div>
+                  <p className="text-sm text-white/65 leading-relaxed">Design engineering studio focused on brand, websites, and product interfaces that convert.</p>
+                </div>
+
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/55 mb-4">Quick Links</p>
+                  <div className="flex flex-col gap-2 text-sm text-white/80">
+                    <a href="#work" className="hover:text-white transition-colors">Work</a>
+                    <a href="#services" className="hover:text-white transition-colors">Services</a>
+                    <a href="#pricing" className="hover:text-white transition-colors">Pricing</a>
+                    <a href="#faq" className="hover:text-white transition-colors">FAQ</a>
+                    <Link href="/pricing" className="hover:text-white transition-colors">Packages</Link>
+                  </div>
+                </div>
+
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/55 mb-4">Contact</p>
+                  <div className="flex flex-col gap-2 text-sm text-white/80">
+                    <a href={MEETING_LINK} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Schedule via Cal.com</a>
+                    <a href={`https://${SITE_HOST}`} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">{SITE_HOST}</a>
+                    <span className="text-white/50">India · Remote Worldwide</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
           <HalftoneFooter text="Fedup" />
 
-          <div className="px-6 py-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between text-xs text-white/50 font-medium z-10 relative">
-            <div className="flex gap-6 mb-4 md:mb-0">
-              <a href="#services" className="hover:text-white transition-colors">Services</a>
+          <div className="px-6 py-6 border-t border-white/10 flex flex-col gap-3 md:flex-row items-center justify-between text-xs text-white/50 font-medium z-10 relative lg:px-20">
+            <p>Fedup Studio &copy; {new Date().getFullYear()}. Crafted for ambitious teams.</p>
+            <div className="flex gap-5">
               <a href="#work" className="hover:text-white transition-colors">Work</a>
+              <a href="#services" className="hover:text-white transition-colors">Services</a>
               <a href="#pricing" className="hover:text-white transition-colors">Pricing</a>
+              <a href="#faq" className="hover:text-white transition-colors">FAQ</a>
               <a href="#contact" className="hover:text-white transition-colors">Contact</a>
             </div>
-            <p>Fedup Studio &copy; {new Date().getFullYear()}. Made with &hearts; in India.</p>
           </div>
         </footer>
 

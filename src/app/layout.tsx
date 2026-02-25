@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SITE } from "@/lib/site";
 import { Inter, Playfair_Display } from "next/font/google";
 import { GeistMono } from 'geist/font/mono';
 import { GeistPixelSquare } from 'geist/font/pixel';
@@ -8,18 +9,32 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
 
 export const metadata: Metadata = {
-  title: "fedup.studio | Design Engineering Lab",
-  description: "Premium Design Engineering Lab. Illustrated + Motion-First Design for Startups, SaaS & Modern Products.",
-  keywords: ["design agency", "web development", "framer", "next.js", "ui/ux", "motion design"],
-  authors: [{ name: "fedup.studio" }],
+  metadataBase: new URL(SITE.domain),
+  title: {
+    default: 'fedup.studio | Design Engineering Lab',
+    template: '%s | fedup.studio',
+  },
+  description: 'Premium Design Engineering Lab. Illustrated + Motion-First Design for Startups, SaaS & Modern Products.',
+  keywords: ['design agency', 'web development', 'next.js', 'ui/ux', 'motion design', 'startup branding'],
+  authors: [{ name: SITE.name }],
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
-    title: "fedup.studio | Design Engineering Lab",
-    description: "Premium Design Engineering Lab. Illustrated + Motion-First Design for Startups, SaaS & Modern Products.",
-    type: "website",
+    title: 'fedup.studio | Design Engineering Lab',
+    description: 'Premium Design Engineering Lab. Illustrated + Motion-First Design for Startups, SaaS & Modern Products.',
+    url: '/',
+    siteName: SITE.name,
+    images: [{ url: SITE.ogImage, width: 1200, height: 630, alt: 'Fedup Studio showcase' }],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'fedup.studio | Design Engineering Lab',
+    description: 'Premium Design Engineering Lab for startups and modern products.',
+    images: [SITE.ogImage],
   },
 };
-
-
 
 export default function RootLayout({
   children,
