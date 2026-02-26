@@ -1,0 +1,15 @@
+<svg width="1200" height="700" viewBox="0 0 1200 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1200" y2="700" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#111827"/>
+      <stop offset="1" stop-color="#1F2937"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="700" fill="url(#g)"/>
+  <rect x="80" y="80" width="1040" height="540" rx="28" fill="#0B1220" stroke="#374151"/>
+  <rect x="120" y="120" width="960" height="250" rx="22" fill="#334155"/>
+  <rect x="120" y="390" width="460" height="190" rx="22" fill="#1F2937"/>
+  <rect x="600" y="390" width="480" height="190" rx="22" fill="#1F2937"/>
+  <circle cx="970" cy="220" r="70" fill="#F97316" fill-opacity="0.85"/>
+  <text x="120" y="635" fill="#F8FAFC" font-family="Inter, Arial, sans-serif" font-size="38" font-weight="700">Hotel MLV Grand</text>
+</svg>

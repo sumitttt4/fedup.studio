@@ -20,7 +20,7 @@ const featuredProjects = [
     name: 'Glyph Software',
     url: 'https://glyph.software',
     tags: ['Design', 'Development'],
-    screenshot: 'https://image.thum.io/get/width/1200/noanimate/https://glyph.software',
+    screenshot: '/projects/glyph-software.svg',
     summary:
       'End-to-end product and marketing experience focused on clarity, performance, and a high-trust SaaS visual system.',
   },
@@ -28,7 +28,7 @@ const featuredProjects = [
     name: 'Hotel MLV Grand',
     url: 'https://hotelmlvgrand.vercel.app/',
     tags: ['Design', 'Development'],
-    screenshot: 'https://image.thum.io/get/width/1200/noanimate/https://hotelmlvgrand.vercel.app/',
+    screenshot: '/projects/hotel-mlv-grand.svg',
     summary:
       'Hospitality website crafted for premium presentation, fast page speed, and mobile-first booking-friendly UX.',
   },
@@ -36,7 +36,7 @@ const featuredProjects = [
     name: 'Nova Dashboard',
     url: 'https://nova-seven-sepia.vercel.app/dashboard',
     tags: ['Dashboard UI', 'Design', 'Development'],
-    screenshot: 'https://image.thum.io/get/width/1200/noanimate/https://nova-seven-sepia.vercel.app/dashboard',
+    screenshot: '/projects/nova-dashboard.svg',
     summary:
       'Data-heavy dashboard designed for decision speed with a clean visual hierarchy and smooth interaction flow.',
   },
@@ -110,7 +110,7 @@ export default function Home() {
             {/* Minimal logo mark */}
             <div className="h-4 w-4 rounded-sm bg-[#c84307]" />
             <span className="text-lg font-bold tracking-tight">
-              Fedup Studio
+              {SITE.brandLabel}
             </span>
           </Link>
           <nav className="hidden items-center gap-8 text-sm font-medium md:flex">
@@ -127,7 +127,7 @@ export default function Home() {
             data-cta="book-call-header"
             className="rounded bg-[#171717] px-5 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-black"
           >
-            Book a 15-min Call
+            {SITE.primaryCtaLabel}
           </a>
         </div>
       </header>
@@ -160,7 +160,7 @@ export default function Home() {
               data-cta="book-call-hero"
               className="rounded bg-[#171717] px-7 py-3.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-black"
             >
-              Book a 15-min Call
+              {SITE.primaryCtaLabel}
             </a>
             <a
               href="#work"
@@ -219,10 +219,11 @@ export default function Home() {
                 >
                   <a href={project.url} target="_blank" rel="noopener noreferrer" className="block">
                     <div className="mb-5 overflow-hidden rounded-xl border border-black/10 bg-[#f5f5f5]">
-                      <img
+                      <Image
                         src={project.screenshot}
                         alt={`${project.name} screenshot`}
-                        loading="lazy"
+                        width={1200}
+                        height={700}
                         className="h-48 w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                       />
                     </div>
@@ -403,7 +404,7 @@ export default function Home() {
                     data-cta={`book-call-service-${service.title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
                     className="w-full mt-auto rounded-xl bg-[#171717] px-4 py-4 text-sm font-semibold text-white text-center hover:bg-black transition-colors"
                   >
-                    Book a 15-min Call
+                    {SITE.primaryCtaLabel}
                   </a>
                 </div>
               </article>
@@ -504,7 +505,7 @@ export default function Home() {
                     rel="noopener noreferrer"
                     className="rounded-xl bg-white px-7 py-3.5 text-sm font-semibold text-[#171717] text-center transition hover:opacity-90"
                   >
-                    Book a 15-min Call
+                    {SITE.primaryCtaLabel}
                   </a>
                   <Link
                     href="/pricing"
@@ -519,7 +520,7 @@ export default function Home() {
                 <div>
                   <div className="mb-4 flex items-center gap-2">
                     <div className="h-4 w-4 rounded-sm bg-[#c84307]" />
-                    <span className="text-lg font-bold tracking-tight">Fedup Studio</span>
+                    <span className="text-lg font-bold tracking-tight">{SITE.brandLabel}</span>
                   </div>
                   <p className="text-sm text-white/65 leading-relaxed">Design engineering studio focused on brand, websites, and product interfaces that convert.</p>
                 </div>
@@ -550,7 +551,7 @@ export default function Home() {
           <HalftoneFooter text="Fedup" height="28vh" minHeight="180px" />
 
           <div className="px-6 py-6 border-t border-white/10 flex flex-col gap-3 md:flex-row items-center justify-between text-xs text-white/50 font-medium z-10 relative lg:px-20">
-            <p>Fedup Studio &copy; {new Date().getFullYear()}. Crafted for ambitious teams.</p>
+            <p>{SITE.brandLabel} &copy; {new Date().getFullYear()}. Crafted for ambitious teams.</p>
             <div className="flex gap-5">
               <a href="#work" className="hover:text-white transition-colors">Work</a>
               <a href="#services" className="hover:text-white transition-colors">Services</a>

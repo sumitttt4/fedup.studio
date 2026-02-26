@@ -6,15 +6,15 @@ const MEETING_LINK = SITE.meetingLink;
 
 export const metadata: Metadata = {
   title: 'Pricing',
-  description: 'Transparent pricing for design, development, and growth support by Fedup Studio.',
+  description: `Transparent pricing for design, development, and growth support by ${SITE.brandLabel}.`,
   alternates: {
     canonical: '/pricing',
   },
   openGraph: {
-    title: 'Pricing | fedup.studio',
+    title: `Pricing | ${SITE.domain.replace('https://', '')}`,
     description: 'Simple, outcome-driven packages with clear pricing and timelines.',
     url: '/pricing',
-    images: [{ url: SITE.ogImage, width: 1200, height: 630, alt: 'Fedup Studio pricing' }],
+    images: [{ url: SITE.ogImage, width: 1200, height: 630, alt: `${SITE.brandLabel} pricing` }],
   },
 };
 
@@ -56,10 +56,10 @@ export default function PricingPage() {
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center gap-2 text-lg font-bold tracking-tight">
             <span className="h-4 w-4 rounded-sm bg-[#c84307]" />
-            Fedup Studio
+            {SITE.brandLabel}
           </Link>
           <a href={MEETING_LINK} target="_blank" rel="noopener noreferrer" data-cta="book-call-pricing-header" className="rounded-full bg-[#171717] px-5 py-2.5 text-sm font-semibold text-white">
-            Book a 15-min Call
+            {SITE.primaryCtaLabel}
           </a>
         </div>
       </header>
@@ -109,7 +109,7 @@ export default function PricingPage() {
           <p className="mt-3 max-w-2xl text-white/75">No long contracts. Clear scope, clear ownership, clear communication.</p>
           <div className="mt-6 flex flex-wrap gap-4">
             <a href={MEETING_LINK} target="_blank" rel="noopener noreferrer" data-cta="book-call-pricing-footer" className="rounded-full bg-[#c84307] px-7 py-3.5 font-semibold text-white">
-              Book a 15-min Call
+              {SITE.primaryCtaLabel}
             </a>
             <Link href="/" className="rounded-full border border-white/25 px-7 py-3.5 font-semibold">
               Back to Home

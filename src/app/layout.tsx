@@ -11,18 +11,18 @@ const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfa
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.domain),
   title: {
-    default: 'fedup.studio | Design Engineering Lab',
-    template: '%s | fedup.studio',
+    default: `${SITE.domain.replace('https://', '')} | ${SITE.tagline}`,
+    template: `%s | ${SITE.domain.replace('https://', '')}`,
   },
-  description: 'Premium Design Engineering Lab. Illustrated + Motion-First Design for Startups, SaaS & Modern Products.',
+  description: `Premium ${SITE.tagline}. Illustrated + Motion-First Design for Startups, SaaS & Modern Products.`,
   keywords: ['design agency', 'web development', 'next.js', 'ui/ux', 'motion design', 'startup branding'],
   authors: [{ name: SITE.name }],
   alternates: {
     canonical: '/',
   },
   openGraph: {
-    title: 'fedup.studio | Design Engineering Lab',
-    description: 'Premium Design Engineering Lab. Illustrated + Motion-First Design for Startups, SaaS & Modern Products.',
+    title: `${SITE.domain.replace('https://', '')} | ${SITE.tagline}`,
+    description: `Premium ${SITE.tagline}. Illustrated + Motion-First Design for Startups, SaaS & Modern Products.`,
     url: '/',
     siteName: SITE.name,
     images: [{ url: SITE.ogImage, width: 1200, height: 630, alt: 'Fedup Studio showcase' }],
@@ -30,8 +30,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'fedup.studio | Design Engineering Lab',
-    description: 'Premium Design Engineering Lab for startups and modern products.',
+    title: `${SITE.domain.replace('https://', '')} | ${SITE.tagline}`,
+    description: `Premium ${SITE.tagline} for startups and modern products.`,
     images: [SITE.ogImage],
   },
 };
