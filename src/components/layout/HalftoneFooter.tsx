@@ -6,6 +6,8 @@ import { motion, useMotionValue, useSpring } from 'framer-motion';
 interface HalftoneFooterProps {
     text?: string;
     imageSrc?: string;
+    height?: string;
+    minHeight?: string;
 }
 
 // Dot color palette - vivid red/gold/white tones
@@ -13,7 +15,9 @@ const DOT_COLORS = ['#FF3333', '#FFD700', '#F0F0F0'];
 
 export function HalftoneFooter({
     text = 'Fedup',
-    imageSrc = '/reveal-image.jpg'
+    imageSrc = '/reveal-image.jpg',
+    height = '50vh',
+    minHeight = '300px'
 }: HalftoneFooterProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const halftoneCanvasRef = useRef<HTMLCanvasElement>(null);
@@ -315,8 +319,8 @@ export function HalftoneFooter({
             onTouchMove={handleTouchMove}
             className="relative w-full overflow-hidden"
             style={{
-                height: '50vh',
-                minHeight: '300px',
+                height,
+                minHeight,
                 fontFamily: 'var(--font-geist-pixel-square)', // Apply pixel font here
             }}
         >
