@@ -66,12 +66,10 @@ body {
   font-family: var(--font-mono);
 }
 
-/* Creamy Grid Pattern */
+/* Subtle dot pattern */
 .bg-grid-pattern {
-  background-size: 32px 32px;
-  background-image:
-    linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
 /* Card hover effect */
@@ -132,8 +130,14 @@ body {
   animation: marquee-scroll 24s linear infinite;
 }
 
+.marquee-track-slow {
+  width: max-content;
+  animation: marquee-scroll 40s linear infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .marquee-track {
+  .marquee-track,
+  .marquee-track-slow {
     animation: none;
   }
 }

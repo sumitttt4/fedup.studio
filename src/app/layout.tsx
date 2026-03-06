@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { SITE } from "@/lib/site";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Inter, Instrument_Serif } from "next/font/google";
 import { GeistMono } from 'geist/font/mono';
 import { GeistPixelSquare } from 'geist/font/pixel';
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
+const instrument = Instrument_Serif({ weight: "400", style: ["normal", "italic"], subsets: ["latin"], variable: "--font-playfair" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.domain),
@@ -42,7 +42,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable} ${GeistMono.variable} ${GeistPixelSquare.variable}`}>
+    <html lang="en" className={`${inter.variable} ${instrument.variable} ${GeistMono.variable} ${GeistPixelSquare.variable}`}>
       <body className={`${inter.className} antialiased bg-[#FAF9F6] text-[#171717] selection:bg-orange-500/30 selection:text-orange-900`}>
         {children}
         {/* Noise Grain Overlay */}
