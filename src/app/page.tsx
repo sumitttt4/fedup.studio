@@ -1,386 +1,726 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { HalftoneFooter } from '@/components/layout/HalftoneFooter';
 import { SITE } from '@/lib/site';
-
-// Use framer-motion logic strictly on client, so separating out interactions.
-// For now, we'll just import simple motion utilities where needed in client components or keep it simple.
-import { AnimatedHero } from '@/components/sections/AnimatedHero';
-import { FeatureGrid } from '@/components/sections/FeatureGrid';
-import { TeamSection } from '@/components/sections/TeamSection';
-import { ScrollReveal } from '@/components/ui/ScrollReveal';
-
-const MEETING_LINK = SITE.meetingLink;
-const SITE_HOST = SITE.domain.replace('https://', '');
+import { Navbar } from '@/components/landing/Navbar';
+import { Hero } from '@/components/landing/Hero';
+import {
+  ArrowRight,
+  CheckCircle2,
+  Quote,
+  Twitter,
+  Linkedin,
+  Github,
+  Layers,
+  Zap,
+  Users,
+} from 'lucide-react';
 
 export const metadata: Metadata = {
-  alternates: {
-    canonical: '/',
-  },
+  alternates: { canonical: '/' },
 };
 
+// ─── Data ────────────────────────────────────────────────────────────────────
 
-const featuredProjects = [
+const TICKER_ITEMS = [
+  'Brand Identity',
+  'Web Design',
+  'Mobile Apps',
+  'Design Systems',
+  'UI/UX',
+  'Development',
+  'Landing Pages',
+  'Figma to Code',
+];
+
+const PROJECTS = [
   {
     name: 'Glyph Software',
+    category: 'Design · Development',
     url: 'https://glyph.software',
-    tags: ['Design', 'Development'],
     screenshot: '/Glyph.png',
     summary:
       'End-to-end product and marketing experience focused on clarity, performance, and a high-trust SaaS visual system.',
   },
   {
     name: 'Hotel MLV Grand',
+    category: 'Hospitality · Web',
     url: 'https://hotelmlvgrand.vercel.app/',
-    tags: ['Design', 'Development'],
-    screenshot: 'https://image.thum.io/get/width/1200/noanimate/https://hotelmlvgrand.vercel.app/',
+    screenshot:
+      'https://image.thum.io/get/width/1200/noanimate/https://hotelmlvgrand.vercel.app/',
     summary:
       'Hospitality website crafted for premium presentation, fast page speed, and mobile-first booking-friendly UX.',
   },
   {
     name: 'Nova Dashboard',
+    category: 'Dashboard UI · SaaS',
     url: 'https://nova-seven-sepia.vercel.app/dashboard',
-    tags: ['Dashboard UI', 'Design', 'Development'],
-    screenshot: 'https://image.thum.io/get/width/1200/noanimate/https://nova-seven-sepia.vercel.app/dashboard',
+    screenshot:
+      'https://image.thum.io/get/width/1200/noanimate/https://nova-seven-sepia.vercel.app/dashboard',
     summary:
       'Data-heavy dashboard designed for decision speed with a clean visual hierarchy and smooth interaction flow.',
   },
 ];
 
-// Duplicate for infinite marquee loop
-const marqueeProjects = [...featuredProjects, ...featuredProjects];
-
-const faqs = [
+const WHY_ITEMS = [
   {
-    question: 'How fast can we start?',
-    answer: 'Most projects begin within 3-5 days after scope alignment and kickoff call.',
+    icon: Layers,
+    title: 'We design AND dev',
+    description:
+      'No hand-off friction. One team takes you from Figma frames to deployed code — so nothing gets lost in translation.',
   },
   {
-    question: 'Do you handle both design and development?',
-    answer: 'Yes. We deliver complete design + development execution with one team and one timeline.',
+    icon: Zap,
+    title: 'Figma to production',
+    description:
+      'Every pixel designed in Figma ships exactly as intended. Pixel-perfect, accessible, and performant in production.',
   },
   {
-    question: 'How do revisions work?',
-    answer: 'We run collaborative weekly review cycles and iterate quickly based on agreed goals and feedback.',
-  },
-  {
-    question: 'Can you support us post-launch?',
-    answer: 'Yes, through a monthly partner plan for enhancements, experiments, and maintenance.',
+    icon: Users,
+    title: 'Solo studio, no mess',
+    description:
+      'You talk directly to the people building your product. No account managers, no bloated teams, no surprises.',
   },
 ];
 
-// Helper component for the intersection node
-const IntersectionNode = ({ className = '' }: { className?: string }) => (
-  <div className={`absolute h-1.5 w-1.5 bg-[#171717] z-10 ${className}`} />
-);
+const PROCESS_STEPS = [
+  {
+    number: '01',
+    label: 'Discovery',
+    description:
+      'We deep-dive into your goals, users, and competitors to define a clear design direction.',
+  },
+  {
+    number: '02',
+    label: 'Design',
+    description:
+      'High-fidelity Figma designs with your brand system, reviewed and refined with you.',
+  },
+  {
+    number: '03',
+    label: 'Dev',
+    description:
+      'Clean Next.js + Tailwind code — responsive, accessible, and optimized for speed.',
+  },
+  {
+    number: '04',
+    label: 'Deploy',
+    description:
+      'Launch on your infrastructure. We stay on for QA, fixes, and post-launch support.',
+  },
+];
+
+const TESTIMONIALS = [
+  {
+    quote:
+      "Fedup Studio shipped our landing page in under two weeks. The quality blew our previous agency's work out of the water — and it actually converts.",
+    name: 'Arjun Mehta',
+    role: 'Founder, Glyph Software',
+    initials: 'AM',
+  },
+  {
+    quote:
+      "What I loved most was that I never had to chase them. Fast, transparent, and the designs genuinely look premium. We've seen a 34% lift in sign-ups.",
+    name: 'Priya Nair',
+    role: 'Head of Product, SaaS startup',
+    initials: 'PN',
+  },
+  {
+    quote:
+      "From Figma to production in 10 days. Seriously impressive execution. The codebase is clean and our engineers were happy too.",
+    name: 'Sam Torres',
+    role: 'CTO, Nova Analytics',
+    initials: 'ST',
+  },
+];
+
+const PRICING_PLANS = [
+  {
+    name: 'Project-Based',
+    price: '$1,490',
+    period: 'flat',
+    description:
+      'Perfect for early-stage teams needing a high-converting presence to start gathering users.',
+    features: [
+      'Custom brand identity',
+      'High-converting landing page',
+      'Mobile responsive',
+      'Basic SEO setup',
+      'Figma source file included',
+      'Delivered in 1–2 weeks',
+    ],
+    cta: 'Get Started',
+    featured: false,
+  },
+  {
+    name: 'Retainer',
+    price: '$1,990',
+    period: '/ mo',
+    description:
+      'Ongoing design + dev partnership. Pause or cancel any time. Direct Slack access to our team.',
+    features: [
+      'Unlimited design requests',
+      'Full-stack development',
+      'Direct Slack channel',
+      '48h avg. turnaround',
+      'Design + code reviews',
+      'Pause or cancel anytime',
+    ],
+    cta: 'Book a Call',
+    featured: true,
+  },
+];
+
+// ─── Logo ─────────────────────────────────────────────────────────────────────
+
+function LogoMark({ className = '' }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 512 512"
+      className={className}
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M256,160L352,320L160,320Z M320,192L288,352L160,224Z"
+        fill="#84cc16"
+        fillRule="evenodd"
+        opacity="0.9"
+      />
+    </svg>
+  );
+}
+
+// ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function Home() {
+  const doubledTicker = [...TICKER_ITEMS, ...TICKER_ITEMS];
+
   return (
-    <main className="min-h-screen bg-[#FAF9F6] bg-grid-pattern text-[#171717] font-sans selection:bg-[#c84307] selection:text-white">
-      {/* Header outside main grid */}
-      <header className="sticky top-0 z-50 w-full border-b border-black/10 bg-[#FAF9F6]/90 backdrop-blur">
-        <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-4 relative">
-          <Link href="/" className="flex items-center gap-2">
-            {/* Minimal logo mark */}
-            <div className="h-4 w-4 rounded-sm bg-[#c84307]" />
-            <span className="text-lg font-bold tracking-tight">
-              Fedup Studio
-            </span>
-          </Link>
-          <nav className="hidden items-center gap-8 text-sm font-medium md:flex">
-            <a href="#work" className="hover:text-[#c84307] transition-colors">Work</a>
-            <a href="#pricing" className="hover:text-[#c84307] transition-colors">Pricing</a>
-            <a href="#faq" className="hover:text-[#c84307] transition-colors">FAQ</a>
-            <a href="#contact" className="hover:text-[#c84307] transition-colors">Contact</a>
-          </nav>
-          <a
-            href={MEETING_LINK}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-cta="book-call-header"
-            className="rounded bg-[#171717] px-5 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-black"
-          >
-            Book a 15-min Call
-          </a>
+    <div className="min-h-screen bg-[#F9F8F6]">
+
+      {/* ── Navbar ── */}
+      <Navbar />
+
+      {/* ── Hero ── */}
+      <Hero />
+
+      {/* ── Marquee Ticker ── */}
+      <section className="relative overflow-hidden border-y border-[#E5E0D8] bg-white py-5">
+        <div className="group [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+          <div className="marquee-track flex items-center gap-10 group-hover:[animation-play-state:paused]">
+            {doubledTicker.map((item, idx) => (
+              <span
+                key={`${item}-${idx}`}
+                className="flex shrink-0 items-center gap-10 font-sans text-sm font-semibold uppercase tracking-widest text-[#767676]"
+              >
+                {item}
+                <span className="text-[#84cc16] text-base leading-none" aria-hidden="true">
+                  ✦
+                </span>
+              </span>
+            ))}
+          </div>
         </div>
-      </header>
+      </section>
 
-      {/* Main Structural Grid Container */}
-      <div className="mx-auto max-w-6xl border-x border-black/10 relative">
-
-        {/* Hero Section */}
-        <AnimatedHero />
-
-        {/* Featured Projects — Marquee */}
-        <section id="work" className="relative border-t border-black/10 py-24 overflow-hidden">
-          <IntersectionNode className="-mt-[3px] -ml-[3px] left-0 top-0" />
-          <IntersectionNode className="-mt-[3px] -mr-[3px] right-0 top-0" />
-
-          <div className="px-6 lg:px-12 mb-14">
-            <div className="mx-auto max-w-6xl flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-              <ScrollReveal>
-                <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#c84307] mb-4">Selected Work</p>
-                <h2 className="text-4xl md:text-5xl font-serif font-medium tracking-tight text-[#171717] max-w-lg">Projects we&apos;re proud of</h2>
-              </ScrollReveal>
-              <ScrollReveal delay={0.1}>
-                <p className="max-w-sm text-sm text-black/50 font-medium leading-relaxed">Real products, live links. No password-gated mockups or concept work.</p>
-              </ScrollReveal>
+      {/* ── Work Grid ── */}
+      <section id="work" className="px-6 py-24 md:py-32">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-14 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="mb-3 font-sans text-xs font-bold uppercase tracking-[0.2em] text-[#84cc16]">
+                Selected Work
+              </p>
+              <h2 className="text-4xl font-bold tracking-tight text-[#1A1A1A] md:text-5xl">
+                Projects we&apos;re proud of
+              </h2>
             </div>
+            <p className="max-w-sm font-serif text-sm leading-relaxed text-[#767676]">
+              Real products, live links. No password-gated mockups or concept work.
+            </p>
           </div>
 
-          {/* Marquee row */}
-          <div className="group relative [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
-            <div className="marquee-track-slow flex gap-6 group-hover:[animation-play-state:paused]">
-              {marqueeProjects.map((project, idx) => (
+          {/* Asymmetric 2-col grid */}
+          <div className="grid gap-6 md:grid-cols-2">
+            {/* Big card — spans 2 rows on desktop */}
+            <a
+              href={PROJECTS[0].url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative md:row-span-2 flex flex-col overflow-hidden rounded-xl border border-[#E5E0D8] bg-white shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+            >
+              <div className="relative overflow-hidden bg-[#F9F8F6]">
+                <img
+                  src={PROJECTS[0].screenshot}
+                  alt={`${PROJECTS[0].name} screenshot`}
+                  loading="lazy"
+                  className="w-full h-[260px] md:h-[400px] object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+                />
+                <div className="absolute inset-0 bg-[#84cc16]/0 transition-all duration-300 group-hover:bg-[#84cc16]/10" />
+              </div>
+              <div className="flex flex-1 flex-col justify-between p-6">
+                <div>
+                  <span className="mb-3 inline-block rounded-full bg-[#ECF1E4] px-3 py-1 font-sans text-xs font-semibold text-[#4a730c]">
+                    {PROJECTS[0].category}
+                  </span>
+                  <h3 className="mb-2 text-xl font-bold text-[#1A1A1A]">{PROJECTS[0].name}</h3>
+                  <p className="font-serif text-sm leading-relaxed text-[#767676]">
+                    {PROJECTS[0].summary}
+                  </p>
+                </div>
+                <div className="mt-5 flex items-center gap-1.5 font-sans text-sm font-semibold text-[#84cc16] opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                  View project <ArrowRight className="h-4 w-4" />
+                </div>
+              </div>
+            </a>
+
+            {/* Second project */}
+            <a
+              href={PROJECTS[1].url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex flex-col overflow-hidden rounded-xl border border-[#E5E0D8] bg-white shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+            >
+              <div className="relative overflow-hidden bg-[#F9F8F6]">
+                <img
+                  src={PROJECTS[1].screenshot}
+                  alt={`${PROJECTS[1].name} screenshot`}
+                  loading="lazy"
+                  className="w-full h-[200px] object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+                />
+                <div className="absolute inset-0 bg-[#84cc16]/0 transition-all duration-300 group-hover:bg-[#84cc16]/10" />
+              </div>
+              <div className="flex flex-1 flex-col justify-between p-5">
+                <div>
+                  <span className="mb-2 inline-block rounded-full bg-[#ECF1E4] px-3 py-1 font-sans text-xs font-semibold text-[#4a730c]">
+                    {PROJECTS[1].category}
+                  </span>
+                  <h3 className="mb-1.5 text-lg font-bold text-[#1A1A1A]">{PROJECTS[1].name}</h3>
+                  <p className="font-serif text-sm leading-relaxed text-[#767676] line-clamp-2">
+                    {PROJECTS[1].summary}
+                  </p>
+                </div>
+                <div className="mt-4 flex items-center gap-1.5 font-sans text-sm font-semibold text-[#84cc16] opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                  View project <ArrowRight className="h-4 w-4" />
+                </div>
+              </div>
+            </a>
+
+            {/* Third project */}
+            <a
+              href={PROJECTS[2].url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex flex-col overflow-hidden rounded-xl border border-[#E5E0D8] bg-white shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+            >
+              <div className="relative overflow-hidden bg-[#F9F8F6]">
+                <img
+                  src={PROJECTS[2].screenshot}
+                  alt={`${PROJECTS[2].name} screenshot`}
+                  loading="lazy"
+                  className="w-full h-[200px] object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+                />
+                <div className="absolute inset-0 bg-[#84cc16]/0 transition-all duration-300 group-hover:bg-[#84cc16]/10" />
+              </div>
+              <div className="flex flex-1 flex-col justify-between p-5">
+                <div>
+                  <span className="mb-2 inline-block rounded-full bg-[#ECF1E4] px-3 py-1 font-sans text-xs font-semibold text-[#4a730c]">
+                    {PROJECTS[2].category}
+                  </span>
+                  <h3 className="mb-1.5 text-lg font-bold text-[#1A1A1A]">{PROJECTS[2].name}</h3>
+                  <p className="font-serif text-sm leading-relaxed text-[#767676] line-clamp-2">
+                    {PROJECTS[2].summary}
+                  </p>
+                </div>
+                <div className="mt-4 flex items-center gap-1.5 font-sans text-sm font-semibold text-[#84cc16] opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                  View project <ArrowRight className="h-4 w-4" />
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Why Fedup ── */}
+      <section id="services" className="border-t border-[#E5E0D8] bg-white px-6 py-24 md:py-32">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-14 text-center">
+            <p className="mb-3 font-sans text-xs font-bold uppercase tracking-[0.2em] text-[#84cc16]">
+              Why Fedup
+            </p>
+            <h2 className="text-4xl font-bold tracking-tight text-[#1A1A1A] md:text-5xl">
+              Built different, on purpose.
+            </h2>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-3">
+            {WHY_ITEMS.map((item) => {
+              const Icon = item.icon;
+              return (
+                <div
+                  key={item.title}
+                  className="group rounded-xl border border-[#E5E0D8] bg-[#F9F8F6] p-8 transition-all duration-300 hover:border-[#84cc16]/50 hover:bg-white hover:shadow-md"
+                >
+                  <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-[#ECF1E4] transition-colors group-hover:bg-[#84cc16]/20">
+                    <Icon className="h-5 w-5 text-[#84cc16]" />
+                  </div>
+                  <h3 className="mb-3 text-lg font-bold text-[#1A1A1A]">{item.title}</h3>
+                  <p className="font-serif text-sm leading-relaxed text-[#767676]">
+                    {item.description}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Process ── */}
+      <section id="process" className="border-t border-[#E5E0D8] px-6 py-24 md:py-32">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-14 text-center">
+            <p className="mb-3 font-sans text-xs font-bold uppercase tracking-[0.2em] text-[#84cc16]">
+              How we work
+            </p>
+            <h2 className="text-4xl font-bold tracking-tight text-[#1A1A1A] md:text-5xl">
+              From zero to shipped.
+            </h2>
+          </div>
+
+          <div className="relative grid gap-8 md:grid-cols-4">
+            {/* Connector line — desktop only */}
+            <div
+              className="pointer-events-none absolute left-0 right-0 top-8 hidden h-px bg-[#E5E0D8] md:block"
+              aria-hidden="true"
+            />
+
+            {PROCESS_STEPS.map((step, idx) => (
+              <div
+                key={step.number}
+                className="relative flex flex-col items-start md:items-center md:text-center"
+              >
+                <div className="relative z-10 mb-5 flex h-16 w-16 items-center justify-center rounded-full border-2 border-[#84cc16] bg-white font-sans text-lg font-bold text-[#84cc16] shadow-sm">
+                  {step.number}
+                </div>
+                {idx < PROCESS_STEPS.length - 1 && (
+                  <div className="absolute left-8 top-16 h-8 w-px bg-[#E5E0D8] md:hidden" />
+                )}
+                <h3 className="mb-2 text-base font-bold text-[#1A1A1A]">{step.label}</h3>
+                <p className="font-serif text-sm leading-relaxed text-[#767676]">
+                  {step.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Testimonials ── */}
+      <section className="border-t border-[#E5E0D8] bg-white px-6 py-24 md:py-32">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-14 text-center">
+            <p className="mb-3 font-sans text-xs font-bold uppercase tracking-[0.2em] text-[#84cc16]">
+              Client Love
+            </p>
+            <h2 className="text-4xl font-bold tracking-tight text-[#1A1A1A] md:text-5xl">
+              What they&apos;re saying.
+            </h2>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-3">
+            {TESTIMONIALS.map((t) => (
+              <div
+                key={t.name}
+                className="flex flex-col justify-between rounded-xl border border-[#E5E0D8] bg-[#F9F8F6] p-7 transition-all duration-300 hover:shadow-md hover:border-[#84cc16]/40"
+              >
+                <div>
+                  <Quote className="mb-4 h-6 w-6 text-[#84cc16]" />
+                  <p className="font-serif text-sm leading-relaxed text-[#1A1A1A]">
+                    &ldquo;{t.quote}&rdquo;
+                  </p>
+                </div>
+                <div className="mt-6 flex items-center gap-3">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#84cc16] font-sans text-xs font-bold text-white">
+                    {t.initials}
+                  </div>
+                  <div>
+                    <p className="font-sans text-sm font-semibold text-[#1A1A1A]">{t.name}</p>
+                    <p className="font-serif text-xs text-[#767676]">{t.role}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Pricing ── */}
+      <section id="pricing" className="border-t border-[#E5E0D8] px-6 py-24 md:py-32">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-14 text-center">
+            <p className="mb-3 font-sans text-xs font-bold uppercase tracking-[0.2em] text-[#84cc16]">
+              Pricing
+            </p>
+            <h2 className="text-4xl font-bold tracking-tight text-[#1A1A1A] md:text-5xl">
+              Simple, honest pricing.
+            </h2>
+            <p className="mt-4 font-serif text-[#767676]">
+              No retainer lock-ins. No surprise invoices. Upgrade or pause anytime.
+            </p>
+          </div>
+
+          <div className="mx-auto grid max-w-4xl gap-6 md:grid-cols-2">
+            {PRICING_PLANS.map((plan) => (
+              <div
+                key={plan.name}
+                className={`relative flex flex-col rounded-xl border p-8 transition-all duration-300 ${
+                  plan.featured
+                    ? 'border-[#84cc16] bg-[#1A1A1A] shadow-xl'
+                    : 'border-[#E5E0D8] bg-white hover:shadow-md hover:border-[#84cc16]/40'
+                }`}
+              >
+                {plan.featured && (
+                  <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-[#84cc16] px-4 py-1 font-sans text-xs font-bold text-white">
+                    Most Popular
+                  </span>
+                )}
+
+                <div className="mb-6">
+                  <h3
+                    className={`font-sans text-xl font-bold ${
+                      plan.featured ? 'text-white' : 'text-[#1A1A1A]'
+                    }`}
+                  >
+                    {plan.name}
+                  </h3>
+                  <div className="mt-3 flex items-baseline gap-1.5">
+                    <span
+                      className={`font-sans text-4xl font-bold ${
+                        plan.featured ? 'text-white' : 'text-[#1A1A1A]'
+                      }`}
+                    >
+                      {plan.price}
+                    </span>
+                    <span
+                      className={`font-serif text-sm ${
+                        plan.featured ? 'text-white/60' : 'text-[#767676]'
+                      }`}
+                    >
+                      {plan.period}
+                    </span>
+                  </div>
+                  <p
+                    className={`mt-3 font-serif text-sm leading-relaxed ${
+                      plan.featured ? 'text-white/70' : 'text-[#767676]'
+                    }`}
+                  >
+                    {plan.description}
+                  </p>
+                </div>
+
+                <ul className="mb-8 flex-1 space-y-3">
+                  {plan.features.map((feature) => (
+                    <li key={feature} className="flex items-start gap-3">
+                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#84cc16]" />
+                      <span
+                        className={`font-serif text-sm ${
+                          plan.featured ? 'text-white/85' : 'text-[#1A1A1A]'
+                        }`}
+                      >
+                        {feature}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+
                 <a
-                  key={`${project.name}-${idx}`}
-                  href={project.url}
+                  href={SITE.meetingLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group/card block shrink-0 w-[340px] sm:w-[420px] md:w-[480px]"
+                  className={`block w-full rounded-lg py-3 text-center font-sans text-sm font-semibold transition-all duration-150 ${
+                    plan.featured
+                      ? 'bg-[#84cc16] text-white hover:bg-[#68a211]'
+                      : 'border-2 border-[#84cc16] text-[#84cc16] hover:bg-[#84cc16] hover:text-white'
+                  }`}
                 >
-                  <article className="h-full rounded-2xl border border-black/10 bg-white overflow-hidden transition-all duration-500 hover:shadow-2xl hover:border-black/20 hover:-translate-y-1">
-                    {/* Browser chrome */}
-                    <div className="flex items-center gap-2 px-4 py-2.5 border-b border-black/5 bg-[#fafafa]">
-                      <div className="flex gap-1.5">
-                        <span className="w-2 h-2 rounded-full bg-black/10" />
-                        <span className="w-2 h-2 rounded-full bg-black/10" />
-                        <span className="w-2 h-2 rounded-full bg-black/10" />
-                      </div>
-                      <div className="mx-auto rounded-md bg-black/[0.04] px-3 py-0.5 text-[10px] text-black/35 font-medium truncate max-w-[200px]">
-                        {project.url.replace('https://', '')}
-                      </div>
-                    </div>
-                    {/* Screenshot */}
-                    <div className="overflow-hidden">
-                      <img
-                        src={project.screenshot}
-                        alt={`${project.name} screenshot`}
-                        loading="lazy"
-                        className="w-full h-[220px] sm:h-[260px] md:h-[300px] object-cover object-top transition-transform duration-700 group-hover/card:scale-[1.03]"
-                      />
-                    </div>
-                    {/* Meta */}
-                    <div className="p-5">
-                      <div className="flex items-center justify-between mb-2">
-                        <h3 className="text-lg font-serif font-medium text-[#171717]">{project.name}</h3>
-                        <span className="text-black/25 group-hover/card:text-[#c84307] transition-colors text-lg">↗</span>
-                      </div>
-                      <p className="text-xs text-black/50 font-medium leading-relaxed line-clamp-2">{project.summary}</p>
-                      <div className="flex flex-wrap gap-1.5 mt-3">
-                        {project.tags.map((tag) => (
-                          <span key={tag} className="rounded-full bg-black/[0.04] px-2.5 py-0.5 text-[10px] font-semibold text-black/50">
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </article>
+                  {plan.cta}
                 </a>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
-        </section>
 
-        {/* The Fedup Standard */}
-        <FeatureGrid />
+          <div className="mt-10 text-center">
+            <Link
+              href="/pricing"
+              className="inline-flex items-center gap-2 font-sans text-sm font-semibold text-[#767676] underline underline-offset-4 transition-colors hover:text-[#84cc16]"
+            >
+              View all plans <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
 
-        {/* Team Section */}
-        <TeamSection />
+      {/* ── CTA Banner ── */}
+      <section className="border-t border-[#E5E0D8] bg-[#1A1A1A] px-6 py-24 md:py-32">
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="mb-4 font-sans text-xs font-bold uppercase tracking-[0.2em] text-[#84cc16]">
+            Let&apos;s work together
+          </p>
+          <h2 className="text-4xl font-bold leading-tight tracking-tight text-white md:text-5xl lg:text-6xl">
+            Still fed up?{' '}
+            <span className="text-[#84cc16]">Good.</span>
+            <br />
+            Let&apos;s fix that.
+          </h2>
+          <p className="mt-6 font-serif text-lg leading-relaxed text-white/60">
+            Book a free 30-minute call. We&apos;ll scope your project, answer your questions, and tell you exactly what it takes to get it done.
+          </p>
+          <div className="mt-10 flex flex-wrap justify-center gap-4">
+            <a
+              href={SITE.meetingLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-lg bg-[#84cc16] px-8 py-4 font-sans text-sm font-semibold text-white shadow-lg shadow-[#84cc16]/20 transition-all duration-150 hover:bg-[#68a211] hover:shadow-xl"
+            >
+              Book a Free Call
+            </a>
+            <a
+              href="#work"
+              className="rounded-lg border border-white/20 px-8 py-4 font-sans text-sm font-semibold text-white transition-all duration-150 hover:border-white/40 hover:bg-white/5"
+            >
+              See Our Work
+            </a>
+          </div>
+        </div>
+      </section>
 
-        {/* Pricing Snapshot */}
-        <section id="pricing" className="relative border-t border-black/10 py-24 px-6 lg:px-12 bg-white">
-          <IntersectionNode className="-mt-[3px] -ml-[3px] left-0 top-0" />
-          <IntersectionNode className="-mt-[3px] -mr-[3px] right-0 top-0" />
-          <div className="mx-auto flex max-w-6xl flex-col items-center">
-            <div className="text-center max-w-3xl mb-16">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#c84307]">Pricing</p>
-              <h2 className="mt-4 text-4xl md:text-5xl font-serif font-medium tracking-tight">Reasonable plans for modern teams.</h2>
-              <p className="mt-4 text-black/70 font-medium">Simple, transparent pricing. No surprise fees. Upgrade or pause whenever.</p>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-6 w-full max-w-5xl">
-              <ScrollReveal delay={0.1}>
-                <div className="h-full rounded-[2rem] border border-black/10 p-8 sm:p-10 flex flex-col hover:border-[#c84307]/50 transition-colors">
-                  <h3 className="text-2xl font-serif font-medium text-[#171717]">MVP Launch</h3>
-                  <div className="mt-4 flex items-baseline gap-2">
-                    <span className="text-4xl font-serif font-medium">$1,490</span>
-                    <span className="text-sm text-black/50">flat</span>
-                  </div>
-                  <p className="mt-4 text-sm text-black/60 font-medium leading-relaxed">Perfect for early stage startups needing a high-converting landing page to start gathering users.</p>
-                  
-                  <ul className="mt-8 space-y-4 flex-1">
-                    {['Custom visual identity', 'High-converting Landing Page', 'Mobile responsive', 'Basic SEO setup', 'Delivered in 1-2 weeks'].map((item) => (
-                      <li key={item} className="flex flex-start gap-3 text-sm font-semibold text-black/70">
-                        <svg className="w-5 h-5 text-[#c84307] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                        </svg>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="mt-10">
-                    <Link href="/pricing" className="block w-full rounded-xl bg-white border border-black/10 px-6 py-4 text-sm font-semibold text-center hover:bg-black/5 transition-colors">
-                      Learn more
-                    </Link>
-                  </div>
-                </div>
-              </ScrollReveal>
-
-              <ScrollReveal delay={0.2}>
-                <div className="h-full rounded-[2rem] border-2 border-[#171717] bg-[#171717] p-8 sm:p-10 flex flex-col text-white relative shadow-xl">
-                  <div className="absolute top-0 right-8 transform -translate-y-1/2 bg-[#c84307] text-white text-xs font-bold uppercase tracking-wider py-1.5 px-4 rounded-full">
-                    Most Popular
-                  </div>
-                  <h3 className="text-2xl font-serif font-medium">Design & Dev Partner</h3>
-                  <div className="mt-4 flex items-baseline gap-2">
-                    <span className="text-4xl font-serif font-medium">$1,990</span>
-                    <span className="text-sm text-white/50">/ mo</span>
-                  </div>
-                  <p className="mt-4 text-sm text-white/70 font-medium leading-relaxed">Pause or cancel anytime. Get ongoing design and development support directly in your Slack.</p>
-                  
-                  <ul className="mt-8 space-y-4 flex-1">
-                    {['Unlimited requests', 'Direct Slack channel', '48hr average turnaround', 'Design + Full Stack Dev', 'Pause/Cancel anytime'].map((item) => (
-                      <li key={item} className="flex flex-start gap-3 text-sm font-semibold text-white/90">
-                        <svg className="w-5 h-5 text-[#c84307] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                        </svg>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="mt-10">
-                    <a href={MEETING_LINK} target="_blank" rel="noopener noreferrer" className="block w-full rounded-xl bg-white px-6 py-4 text-sm font-bold text-[#171717] text-center hover:bg-gray-100 transition-colors">
-                      Book a call
-                    </a>
-                  </div>
-                </div>
-              </ScrollReveal>
-            </div>
-            
-            <div className="mt-12">
-              <Link href="/pricing" className="inline-flex items-center gap-2 text-sm font-semibold text-black/60 hover:text-[#c84307] transition-colors underline underline-offset-4">
-                View all pricing plans
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
+      {/* ── Footer ── */}
+      <footer className="border-t border-white/10 bg-[#1A1A1A] px-6 py-16">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid gap-12 md:grid-cols-4">
+            {/* Brand */}
+            <div>
+              <Link href="/" className="mb-4 inline-flex items-center gap-2.5">
+                <LogoMark className="h-8 w-8" />
+                <span className="font-sans text-base font-bold text-white">fedup.studio</span>
               </Link>
+              <p className="mt-3 font-serif text-sm leading-relaxed text-white/50">
+                Design engineering studio focused on brand, websites, and product interfaces that convert.
+              </p>
+              <div className="mt-5 flex items-center gap-3">
+                <a
+                  href="https://twitter.com/fedupstudio"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Twitter"
+                  className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 text-white/40 transition-colors hover:border-white/30 hover:text-white"
+                >
+                  <Twitter className="h-3.5 w-3.5" />
+                </a>
+                <a
+                  href="https://linkedin.com/company/fedupstudio"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn"
+                  className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 text-white/40 transition-colors hover:border-white/30 hover:text-white"
+                >
+                  <Linkedin className="h-3.5 w-3.5" />
+                </a>
+                <a
+                  href="https://github.com/fedupstudio"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="GitHub"
+                  className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 text-white/40 transition-colors hover:border-white/30 hover:text-white"
+                >
+                  <Github className="h-3.5 w-3.5" />
+                </a>
+              </div>
             </div>
-          </div>
-        </section>
 
-        {/* FAQ */}
-        <section id="faq" className="relative border-t border-black/10 py-20 px-6 lg:px-12">
-          <IntersectionNode className="-mt-[3px] -ml-[3px] left-0 top-0" />
-          <IntersectionNode className="-mt-[3px] -mr-[3px] right-0 top-0" />
-
-          <div className="mx-auto max-w-4xl">
-            <ScrollReveal>
-              <h2 className="text-4xl md:text-5xl font-serif font-medium text-center text-[#171717]">Frequently asked questions</h2>
-            </ScrollReveal>
-            <div className="mt-10 space-y-3">
-              {faqs.map((item, idx) => (
-                <ScrollReveal key={item.question} delay={idx * 0.05}>
-                  <details className="group rounded-2xl border border-black/5 bg-white p-6 hover:shadow-md transition-shadow [&_summary::-webkit-details-marker]:hidden">
-                    <summary className="cursor-pointer list-none flex items-center justify-between text-base font-semibold text-[#171717]">
-                      {item.question}
-                      <span className="ml-4 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#f5f5f5] text-black/40 group-open:rotate-180 transition-transform">
-                        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
-                      </span>
-                    </summary>
-                    <p className="mt-4 text-sm text-black/60 leading-relaxed font-medium">{item.answer}</p>
-                  </details>
-                </ScrollReveal>
-              ))}
+            {/* Navigation */}
+            <div>
+              <p className="mb-4 font-sans text-xs font-bold uppercase tracking-[0.15em] text-white/40">
+                Navigate
+              </p>
+              <ul className="space-y-2.5">
+                {[
+                  { href: '#work', label: 'Work' },
+                  { href: '#services', label: 'Services' },
+                  { href: '#process', label: 'Process' },
+                  { href: '#pricing', label: 'Pricing' },
+                ].map((link) => (
+                  <li key={link.href}>
+                    <a
+                      href={link.href}
+                      className="font-sans text-sm text-white/60 transition-colors hover:text-white"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
-          </div>
-        </section>
 
-        {/* Footer */}
-        <footer id="contact" className="relative bg-[#171717] text-white overflow-hidden border-t border-black/10">
-          <IntersectionNode className="-mt-[3px] -ml-[3px] left-0 top-0" />
-          <IntersectionNode className="-mt-[3px] -mr-[3px] right-0 top-0" />
+            {/* Services */}
+            <div>
+              <p className="mb-4 font-sans text-xs font-bold uppercase tracking-[0.15em] text-white/40">
+                Services
+              </p>
+              <ul className="space-y-2.5">
+                {[
+                  'Brand Identity',
+                  'Web Design',
+                  'Design Systems',
+                  'Figma to Code',
+                  'Landing Pages',
+                ].map((s) => (
+                  <li key={s}>
+                    <span className="font-sans text-sm text-white/50">{s}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          <div className="px-6 pt-16 pb-10 lg:px-20 lg:pt-24 relative z-10">
-            <div className="mx-auto max-w-6xl rounded-3xl border border-white/10 bg-white/[0.03] p-8 md:p-10 backdrop-blur-sm">
-              <div className="flex flex-col items-start justify-between gap-8 lg:flex-row">
-                <div className="max-w-xl">
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#c84307]">Let&apos;s build together</p>
-                  <h2 className="mt-4 text-3xl md:text-5xl font-serif font-medium tracking-tight">Ready to launch a high-converting digital presence?</h2>
-                  <p className="mt-4 text-sm md:text-base text-white/75">We design and build premium web experiences for founders and teams who need speed, clarity, and execution.</p>
-                </div>
-                <div className="flex flex-col gap-3 w-full sm:w-auto">
+            {/* Contact */}
+            <div>
+              <p className="mb-4 font-sans text-xs font-bold uppercase tracking-[0.15em] text-white/40">
+                Contact
+              </p>
+              <ul className="space-y-2.5">
+                <li>
                   <a
-                    href={MEETING_LINK}
+                    href={SITE.meetingLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="rounded-xl bg-white px-7 py-3.5 text-sm font-semibold text-[#171717] text-center transition hover:opacity-90"
+                    className="font-sans text-sm text-white/60 transition-colors hover:text-white"
                   >
-                    Book a 15-min Call
+                    Book a call →
                   </a>
-                  <Link
-                    href="/pricing"
-                    className="rounded-xl border border-white/20 px-7 py-3.5 text-sm font-semibold text-center hover:bg-white/10 transition"
-                  >
-                    View Pricing
-                  </Link>
-                </div>
-              </div>
-
-              <div className="mt-10 grid gap-8 border-t border-white/10 pt-8 md:grid-cols-4">
-                <div>
-                  <div className="mb-4 flex items-center gap-2">
-                    <div className="h-4 w-4 rounded-sm bg-[#c84307]" />
-                    <span className="text-lg font-bold tracking-tight">Fedup Studio</span>
-                  </div>
-                  <p className="text-sm text-white/65 leading-relaxed">Design engineering studio focused on brand, websites, and product interfaces that convert.</p>
-                </div>
-
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/55 mb-4">Quick Links</p>
-                  <div className="flex flex-col gap-2 text-sm text-white/80">
-                    <a href="#work" className="hover:text-white transition-colors">Work</a>
-                    <a href="#pricing" className="hover:text-white transition-colors">Pricing</a>
-                    <a href="#faq" className="hover:text-white transition-colors">FAQ</a>
-                    <Link href="/pricing" className="hover:text-white transition-colors">Packages</Link>
-                  </div>
-                </div>
-
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/55 mb-4">Contact</p>
-                  <div className="flex flex-col gap-2 text-sm text-white/80">
-                    <a href={MEETING_LINK} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Schedule via Cal.com</a>
-                    <a href={`https://${SITE_HOST}`} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">{SITE_HOST}</a>
-                    <span className="text-white/50">India · Remote Worldwide</span>
-                  </div>
-                </div>
-
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/55 mb-4">Socials</p>
-                  <div className="flex flex-col gap-2 text-sm text-white/80">
-                    <a href="https://twitter.com/fedupstudio" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Twitter / X</a>
-                    <a href="https://linkedin.com/company/fedupstudio" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">LinkedIn</a>
-                    <a href="https://github.com/fedupstudio" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">GitHub</a>
-                  </div>
-                </div>
-              </div>
+                </li>
+                <li>
+                  <span className="font-sans text-sm text-white/40">
+                    India · Remote Worldwide
+                  </span>
+                </li>
+              </ul>
             </div>
           </div>
 
-          <HalftoneFooter text="Fedup" />
-
-          <div className="px-6 py-6 border-t border-white/10 flex flex-col gap-3 md:flex-row items-center justify-between text-xs text-white/50 font-medium z-10 relative lg:px-20">
-            <p>Fedup Studio &copy; {new Date().getFullYear()}. Crafted for ambitious teams.</p>
-            <div className="flex gap-5">
-              <a href="#work" className="hover:text-white transition-colors">Work</a>
-              <a href="#pricing" className="hover:text-white transition-colors">Pricing</a>
-              <a href="#faq" className="hover:text-white transition-colors">FAQ</a>
-              <a href="#contact" className="hover:text-white transition-colors">Contact</a>
+          {/* Bottom bar */}
+          <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 md:flex-row">
+            <p className="font-sans text-xs text-white/35">
+              © {new Date().getFullYear()} Fedup Studio. Crafted for ambitious teams.
+            </p>
+            <div className="flex gap-6">
+              <a href="#work" className="font-sans text-xs text-white/35 transition-colors hover:text-white/60">Work</a>
+              <a href="#pricing" className="font-sans text-xs text-white/35 transition-colors hover:text-white/60">Pricing</a>
+              <Link href="/pricing" className="font-sans text-xs text-white/35 transition-colors hover:text-white/60">Packages</Link>
             </div>
           </div>
-        </footer>
-
-      </div>
-    </main>
+        </div>
+      </footer>
+    </div>
   );
 }

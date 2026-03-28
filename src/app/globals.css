@@ -1,26 +1,40 @@
 @import "tailwindcss";
 
 :root {
-  --background: #FAF9F6;
-  --foreground: #171717;
+  /* Brand system */
+  --primary: #84cc16;
+  --primary-hover: #68a211;
+  --primary-light: #ECF1E4;
+  --background: #F9F8F6;
+  --surface: #FFFFFF;
+  --text: #1A1A1A;
+  --muted: #767676;
+  --border: #E5E0D8;
+
+  /* Legacy aliases for existing components */
   --card: #ffffff;
   --card-hover: #fafafa;
-  --border: rgba(0, 0, 0, 0.08);
   --border-hover: rgba(0, 0, 0, 0.15);
-  --accent: #c84307;
+  --accent: #84cc16;
+  --foreground: #1A1A1A;
 }
 
 @theme inline {
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-light: var(--primary-light);
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
   --color-card: var(--card);
   --color-card-hover: var(--card-hover);
-  --color-border: var(--border);
   --color-accent: var(--accent);
-  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
-  --font-serif: var(--font-playfair), Georgia, serif;
+  --color-foreground: var(--foreground);
+  --font-sans: 'Inter', var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  --font-serif: 'Merriweather', Georgia, serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
-  --font-pixel: var(--font-geist-pixel-square);
 }
 
 * {
@@ -33,10 +47,14 @@ html {
 
 body {
   background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans);
+  color: var(--text);
+  font-family: var(--font-serif);
   line-height: 1.6;
   overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-sans);
 }
 
 /* Custom Scrollbar */
@@ -57,40 +75,26 @@ body {
   background: rgba(0, 0, 0, 0.2);
 }
 
-/* Font utilities */
-.font-pixel {
-  font-family: var(--font-pixel);
-}
-
-.font-mono {
-  font-family: var(--font-mono);
-}
-
 /* Subtle dot pattern */
 .bg-grid-pattern {
-  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.06) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 
-/* Card hover effect */
+/* Card hover */
 .card-hover {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card-hover:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.08);
 }
 
 /* Shimmer sweep animation */
 @keyframes shimmer-sweep {
-  0% {
-    background-position: 200% 0;
-  }
-
-  100% {
-    background-position: -200% 0;
-  }
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 
 .shimmer-sweep {
@@ -108,31 +112,26 @@ body {
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.02));
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.02));
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask-composite: exclude;
   pointer-events: none;
 }
 
-/* Trusted brands marquee */
+/* Marquee */
 @keyframes marquee-scroll {
-  0% {
-    transform: translateX(0);
-  }
-
-  100% {
-    transform: translateX(-50%);
-  }
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 .marquee-track {
   width: max-content;
-  animation: marquee-scroll 24s linear infinite;
+  animation: marquee-scroll 28s linear infinite;
 }
 
 .marquee-track-slow {
   width: max-content;
-  animation: marquee-scroll 40s linear infinite;
+  animation: marquee-scroll 45s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
