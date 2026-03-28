@@ -3,21 +3,16 @@ import Link from 'next/link';
 import { SITE } from '@/lib/site';
 import { Navbar } from '@/components/landing/Navbar';
 import { Hero } from '@/components/landing/Hero';
-import {
-  ArrowRight,
-  CheckCircle2,
-  Quote,
-  Twitter,
-  Linkedin,
-  Github,
-  Layers,
-  Zap,
-  Users,
-} from 'lucide-react';
+import { ArrowRight, CheckCircle2, Twitter, Linkedin, Github } from 'lucide-react';
 
 export const metadata: Metadata = {
   alternates: { canonical: '/' },
 };
+
+// ─── Shared style tokens ──────────────────────────────────────────────────────
+// Section label: font-sans text-[11px] font-semibold uppercase tracking-[0.15em] text-[#767676]
+// Section headline: font-sans text-[40px] font-bold leading-[1.1] text-[#1A1A1A]
+// Body / desc: font-serif text-[15px] leading-[1.7] text-[#767676]
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -61,24 +56,25 @@ const PROJECTS = [
   },
 ];
 
-const WHY_ITEMS = [
+const LEFT_FEATURES = [
   {
-    icon: Layers,
-    title: 'We design AND dev',
-    description:
-      'No hand-off friction. One team takes you from Figma frames to deployed code — so nothing gets lost in translation.',
+    title: 'No handoff mess',
+    description: 'Design and dev in one team. Nothing lost in translation.',
   },
   {
-    icon: Zap,
+    title: 'Direct communication',
+    description: "You deal with the makers, not an account manager.",
+  },
+];
+
+const RIGHT_FEATURES = [
+  {
     title: 'Figma to production',
-    description:
-      'Every pixel designed in Figma ships exactly as intended. Pixel-perfect, accessible, and performant in production.',
+    description: 'What we design is exactly what ships. Pixel-perfect.',
   },
   {
-    icon: Users,
-    title: 'Solo studio, no mess',
-    description:
-      'You talk directly to the people building your product. No account managers, no bloated teams, no surprises.',
+    title: 'Speed without compromise',
+    description: 'Most projects go from kickoff to live in under 2 weeks.',
   },
 ];
 
@@ -86,50 +82,39 @@ const PROCESS_STEPS = [
   {
     number: '01',
     label: 'Discovery',
-    description:
-      'We deep-dive into your goals, users, and competitors to define a clear design direction.',
+    description: 'We deep-dive into your goals, users, and competitors to define a clear direction.',
   },
   {
     number: '02',
     label: 'Design',
-    description:
-      'High-fidelity Figma designs with your brand system, reviewed and refined with you.',
+    description: 'High-fidelity Figma designs with your brand system, reviewed and refined with you.',
   },
   {
     number: '03',
     label: 'Dev',
-    description:
-      'Clean Next.js + Tailwind code — responsive, accessible, and optimized for speed.',
+    description: 'Clean Next.js + Tailwind code — responsive, accessible, and fast.',
   },
   {
     number: '04',
     label: 'Deploy',
-    description:
-      'Launch on your infrastructure. We stay on for QA, fixes, and post-launch support.',
+    description: 'We launch on your infrastructure and stay on for QA and post-launch support.',
   },
 ];
 
 const TESTIMONIALS = [
   {
     quote:
-      "Fedup Studio shipped our landing page in under two weeks. The quality blew our previous agency's work out of the water — and it actually converts.",
-    name: 'Arjun Mehta',
-    role: 'Founder, Glyph Software',
+      'Sumit shipped our landing page in under a week. Clean, fast, and exactly what we needed.',
+    name: 'Arjun Mehra',
+    role: 'Founder',
     initials: 'AM',
   },
   {
     quote:
-      "What I loved most was that I never had to chase them. Fast, transparent, and the designs genuinely look premium. We've seen a 34% lift in sign-ups.",
-    name: 'Priya Nair',
-    role: 'Head of Product, SaaS startup',
-    initials: 'PN',
-  },
-  {
-    quote:
-      "From Figma to production in 10 days. Seriously impressive execution. The codebase is clean and our engineers were happy too.",
-    name: 'Sam Torres',
-    role: 'CTO, Nova Analytics',
-    initials: 'ST',
+      'Working with Fedup Studio felt like having a senior designer and developer on call. The quality is exceptional — and they actually deliver on time.',
+    name: 'Sarah Chen',
+    role: 'Head of Product',
+    initials: 'SC',
   },
 ];
 
@@ -170,7 +155,30 @@ const PRICING_PLANS = [
   },
 ];
 
-// ─── Logo ─────────────────────────────────────────────────────────────────────
+const DELIVERY_STEPS = [
+  { label: 'Figma Design', days: 'Days 1–3' },
+  { label: 'Review & Revise', days: 'Days 4–5' },
+  { label: 'Development', days: 'Days 6–10' },
+  { label: 'Deploy & Launch', days: 'Days 11–14' },
+];
+
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+
+function SectionLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.15em] text-[#767676]">
+      {children}
+    </p>
+  );
+}
+
+function SectionHeadline({ children }: { children: React.ReactNode }) {
+  return (
+    <h2 className="font-sans text-[40px] font-bold leading-[1.1] tracking-tight text-[#1A1A1A]">
+      {children}
+    </h2>
+  );
+}
 
 function LogoMark({ className = '' }: { className?: string }) {
   return (
@@ -208,16 +216,18 @@ export default function Home() {
       {/* ── Marquee Ticker ── */}
       <section className="relative overflow-hidden border-y border-[#E5E0D8] bg-white py-5">
         <div className="group [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
-          <div className="marquee-track flex items-center gap-10 group-hover:[animation-play-state:paused]">
+          {/* Slow marquee — 55s cycle */}
+          <div
+            className="flex items-center gap-10 group-hover:[animation-play-state:paused]"
+            style={{ width: 'max-content', animation: 'marquee-scroll 55s linear infinite' }}
+          >
             {doubledTicker.map((item, idx) => (
               <span
                 key={`${item}-${idx}`}
-                className="flex shrink-0 items-center gap-10 font-sans text-sm font-semibold uppercase tracking-widest text-[#767676]"
+                className="flex shrink-0 items-center gap-10 font-sans text-[14px] font-semibold uppercase tracking-[0.18em] text-[#767676]"
               >
                 {item}
-                <span className="text-[#84cc16] text-base leading-none" aria-hidden="true">
-                  ✦
-                </span>
+                <span className="text-[#84cc16] leading-none" aria-hidden="true">✦</span>
               </span>
             ))}
           </div>
@@ -225,191 +235,237 @@ export default function Home() {
       </section>
 
       {/* ── Work Grid ── */}
-      <section id="work" className="px-6 py-24 md:py-32">
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-14 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+      <section id="work" className="px-6 py-24">
+        <div className="mx-auto max-w-[1100px]">
+          {/* Header */}
+          <div className="mb-12 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div>
-              <p className="mb-3 font-sans text-xs font-bold uppercase tracking-[0.2em] text-[#84cc16]">
-                Selected Work
-              </p>
-              <h2 className="text-4xl font-bold tracking-tight text-[#1A1A1A] md:text-5xl">
+              <SectionLabel>Selected Work</SectionLabel>
+              <h2 className="mt-3 font-sans text-[40px] font-bold leading-[1.1] tracking-tight text-[#1A1A1A]">
                 Projects we&apos;re proud of
               </h2>
             </div>
-            <p className="max-w-sm font-serif text-sm leading-relaxed text-[#767676]">
-              Real products, live links. No password-gated mockups or concept work.
+            <p className="max-w-xs font-serif text-[15px] leading-[1.7] text-[#767676]">
+              Real products, live links. No password-gated mockups.
             </p>
           </div>
 
-          {/* Asymmetric 2-col grid */}
-          <div className="grid gap-6 md:grid-cols-2">
-            {/* Big card — spans 2 rows on desktop */}
+          {/* Card layout: full-width first, 2-equal below */}
+          <div className="flex flex-col gap-6">
+
+            {/* First card — full width, 300px image */}
             <a
               href={PROJECTS[0].url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative md:row-span-2 flex flex-col overflow-hidden rounded-xl border border-[#E5E0D8] bg-white shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+              className="group relative flex flex-col overflow-hidden rounded-xl border border-[#E5E0D8] bg-white shadow-sm transition-all duration-300 hover:shadow-lg hover:scale-[1.02]"
             >
               <div className="relative overflow-hidden bg-[#F9F8F6]">
+                {/* Category badge — top left */}
+                <span className="absolute left-4 top-4 z-10 rounded-full bg-white/90 px-3 py-1 font-sans text-xs font-semibold text-[#4a730c] backdrop-blur-sm border border-[#E5E0D8]">
+                  {PROJECTS[0].category}
+                </span>
                 <img
                   src={PROJECTS[0].screenshot}
                   alt={`${PROJECTS[0].name} screenshot`}
                   loading="lazy"
-                  className="w-full h-[260px] md:h-[400px] object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+                  className="w-full h-[300px] object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
                 />
                 <div className="absolute inset-0 bg-[#84cc16]/0 transition-all duration-300 group-hover:bg-[#84cc16]/10" />
               </div>
-              <div className="flex flex-1 flex-col justify-between p-6">
+              <div className="flex items-center justify-between p-6">
                 <div>
-                  <span className="mb-3 inline-block rounded-full bg-[#ECF1E4] px-3 py-1 font-sans text-xs font-semibold text-[#4a730c]">
-                    {PROJECTS[0].category}
-                  </span>
-                  <h3 className="mb-2 text-xl font-bold text-[#1A1A1A]">{PROJECTS[0].name}</h3>
-                  <p className="font-serif text-sm leading-relaxed text-[#767676]">
+                  <h3 className="font-sans text-xl font-bold text-[#1A1A1A]">{PROJECTS[0].name}</h3>
+                  <p className="mt-1 font-serif text-[15px] leading-[1.7] text-[#767676]">
                     {PROJECTS[0].summary}
                   </p>
                 </div>
-                <div className="mt-5 flex items-center gap-1.5 font-sans text-sm font-semibold text-[#84cc16] opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                  View project <ArrowRight className="h-4 w-4" />
+                <div className="ml-6 flex shrink-0 items-center gap-1.5 font-sans text-sm font-semibold text-[#84cc16] opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                  View <ArrowRight className="h-4 w-4" />
                 </div>
               </div>
             </a>
 
-            {/* Second project */}
-            <a
-              href={PROJECTS[1].url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex flex-col overflow-hidden rounded-xl border border-[#E5E0D8] bg-white shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
-            >
-              <div className="relative overflow-hidden bg-[#F9F8F6]">
-                <img
-                  src={PROJECTS[1].screenshot}
-                  alt={`${PROJECTS[1].name} screenshot`}
-                  loading="lazy"
-                  className="w-full h-[200px] object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
-                />
-                <div className="absolute inset-0 bg-[#84cc16]/0 transition-all duration-300 group-hover:bg-[#84cc16]/10" />
-              </div>
-              <div className="flex flex-1 flex-col justify-between p-5">
-                <div>
-                  <span className="mb-2 inline-block rounded-full bg-[#ECF1E4] px-3 py-1 font-sans text-xs font-semibold text-[#4a730c]">
-                    {PROJECTS[1].category}
-                  </span>
-                  <h3 className="mb-1.5 text-lg font-bold text-[#1A1A1A]">{PROJECTS[1].name}</h3>
-                  <p className="font-serif text-sm leading-relaxed text-[#767676] line-clamp-2">
-                    {PROJECTS[1].summary}
-                  </p>
-                </div>
-                <div className="mt-4 flex items-center gap-1.5 font-sans text-sm font-semibold text-[#84cc16] opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                  View project <ArrowRight className="h-4 w-4" />
-                </div>
-              </div>
-            </a>
-
-            {/* Third project */}
-            <a
-              href={PROJECTS[2].url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex flex-col overflow-hidden rounded-xl border border-[#E5E0D8] bg-white shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
-            >
-              <div className="relative overflow-hidden bg-[#F9F8F6]">
-                <img
-                  src={PROJECTS[2].screenshot}
-                  alt={`${PROJECTS[2].name} screenshot`}
-                  loading="lazy"
-                  className="w-full h-[200px] object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
-                />
-                <div className="absolute inset-0 bg-[#84cc16]/0 transition-all duration-300 group-hover:bg-[#84cc16]/10" />
-              </div>
-              <div className="flex flex-1 flex-col justify-between p-5">
-                <div>
-                  <span className="mb-2 inline-block rounded-full bg-[#ECF1E4] px-3 py-1 font-sans text-xs font-semibold text-[#4a730c]">
-                    {PROJECTS[2].category}
-                  </span>
-                  <h3 className="mb-1.5 text-lg font-bold text-[#1A1A1A]">{PROJECTS[2].name}</h3>
-                  <p className="font-serif text-sm leading-relaxed text-[#767676] line-clamp-2">
-                    {PROJECTS[2].summary}
-                  </p>
-                </div>
-                <div className="mt-4 flex items-center gap-1.5 font-sans text-sm font-semibold text-[#84cc16] opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                  View project <ArrowRight className="h-4 w-4" />
-                </div>
-              </div>
-            </a>
+            {/* Row 2 — 2 equal cards, 200px image */}
+            <div className="grid gap-6 md:grid-cols-2">
+              {PROJECTS.slice(1).map((project) => (
+                <a
+                  key={project.name}
+                  href={project.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex flex-col overflow-hidden rounded-xl border border-[#E5E0D8] bg-white shadow-sm transition-all duration-300 hover:shadow-lg hover:scale-[1.02]"
+                >
+                  <div className="relative overflow-hidden bg-[#F9F8F6]">
+                    <span className="absolute left-4 top-4 z-10 rounded-full bg-white/90 px-3 py-1 font-sans text-xs font-semibold text-[#4a730c] backdrop-blur-sm border border-[#E5E0D8]">
+                      {project.category}
+                    </span>
+                    <img
+                      src={project.screenshot}
+                      alt={`${project.name} screenshot`}
+                      loading="lazy"
+                      className="w-full h-[200px] object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+                    />
+                    <div className="absolute inset-0 bg-[#84cc16]/0 transition-all duration-300 group-hover:bg-[#84cc16]/10" />
+                  </div>
+                  <div className="flex flex-1 flex-col justify-between p-5">
+                    <div>
+                      <h3 className="font-sans text-lg font-bold text-[#1A1A1A]">{project.name}</h3>
+                      <p className="mt-1.5 font-serif text-[15px] leading-[1.7] text-[#767676] line-clamp-2">
+                        {project.summary}
+                      </p>
+                    </div>
+                    <div className="mt-4 flex items-center gap-1.5 font-sans text-sm font-semibold text-[#84cc16] opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                      View project <ArrowRight className="h-4 w-4" />
+                    </div>
+                  </div>
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ── Why Fedup ── */}
-      <section id="services" className="border-t border-[#E5E0D8] bg-white px-6 py-24 md:py-32">
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-14 text-center">
-            <p className="mb-3 font-sans text-xs font-bold uppercase tracking-[0.2em] text-[#84cc16]">
-              Why Fedup
-            </p>
-            <h2 className="text-4xl font-bold tracking-tight text-[#1A1A1A] md:text-5xl">
+      {/* ── Why Fedup — Bento layout ── */}
+      <section id="services" className="border-t border-[#E5E0D8] bg-white px-6 py-24">
+        <div className="mx-auto max-w-[1100px]">
+          {/* Header */}
+          <div className="mb-16 text-center">
+            <SectionLabel>Why Fedup</SectionLabel>
+            <h2 className="mt-3 font-sans text-[40px] font-bold leading-[1.1] tracking-tight text-[#1A1A1A]">
               Built different, on purpose.
             </h2>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-3">
-            {WHY_ITEMS.map((item) => {
-              const Icon = item.icon;
-              return (
-                <div
-                  key={item.title}
-                  className="group rounded-xl border border-[#E5E0D8] bg-[#F9F8F6] p-8 transition-all duration-300 hover:border-[#84cc16]/50 hover:bg-white hover:shadow-md"
-                >
-                  <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-[#ECF1E4] transition-colors group-hover:bg-[#84cc16]/20">
-                    <Icon className="h-5 w-5 text-[#84cc16]" />
-                  </div>
-                  <h3 className="mb-3 text-lg font-bold text-[#1A1A1A]">{item.title}</h3>
-                  <p className="font-serif text-sm leading-relaxed text-[#767676]">
-                    {item.description}
+          {/* Bento: 2 features | center mockup | 2 features */}
+          <div className="grid grid-cols-1 items-center gap-16 md:grid-cols-[1fr_340px_1fr]">
+
+            {/* Left features — no card border, just whitespace */}
+            <div className="flex flex-col gap-12">
+              {LEFT_FEATURES.map((f) => (
+                <div key={f.title}>
+                  <h3 className="font-sans text-[17px] font-bold text-[#1A1A1A]">{f.title}</h3>
+                  <p className="mt-1.5 font-serif text-[15px] leading-[1.7] text-[#767676]">
+                    {f.description}
                   </p>
                 </div>
-              );
-            })}
+              ))}
+            </div>
+
+            {/* Center UI mockup card */}
+            <div className="relative mx-auto w-full max-w-[340px]">
+              {/* Outer glow */}
+              <div className="absolute -inset-3 rounded-3xl bg-[#84cc16]/8 blur-xl" />
+              <div className="relative rounded-2xl border border-[#E5E0D8] bg-white p-5 shadow-xl">
+                {/* Card header */}
+                <div className="mb-4 flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#84cc16]">
+                      <span className="font-sans text-[11px] font-black text-white">F</span>
+                    </div>
+                    <span className="font-sans text-[13px] font-semibold text-[#1A1A1A]">
+                      Project Timeline
+                    </span>
+                  </div>
+                  <span className="rounded-full bg-[#ECF1E4] px-2.5 py-0.5 font-sans text-[11px] font-semibold text-[#4a730c]">
+                    2 weeks
+                  </span>
+                </div>
+
+                {/* Delivery steps */}
+                <div className="space-y-2">
+                  {DELIVERY_STEPS.map((step) => (
+                    <div
+                      key={step.label}
+                      className="flex items-center justify-between rounded-lg bg-[#F9F8F6] px-3 py-2.5"
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <svg
+                          className="h-4 w-4 shrink-0 text-[#84cc16]"
+                          fill="none"
+                          viewBox="0 0 16 16"
+                          stroke="currentColor"
+                          strokeWidth={2.5}
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M3 8l3.5 3.5L13 4.5"
+                          />
+                        </svg>
+                        <span className="font-sans text-[13px] font-medium text-[#1A1A1A]">
+                          {step.label}
+                        </span>
+                      </div>
+                      <span className="font-sans text-[11px] text-[#767676]">{step.days}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Footer */}
+                <div className="mt-3 flex items-center justify-center gap-2 rounded-lg bg-[#84cc16] px-3 py-2.5">
+                  <span className="font-sans text-[13px] font-semibold text-white">
+                    🚀 Figma file → Live site in 2 weeks
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right features */}
+            <div className="flex flex-col gap-12">
+              {RIGHT_FEATURES.map((f) => (
+                <div key={f.title}>
+                  <h3 className="font-sans text-[17px] font-bold text-[#1A1A1A]">{f.title}</h3>
+                  <p className="mt-1.5 font-serif text-[15px] leading-[1.7] text-[#767676]">
+                    {f.description}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* ── Process ── */}
-      <section id="process" className="border-t border-[#E5E0D8] px-6 py-24 md:py-32">
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-14 text-center">
-            <p className="mb-3 font-sans text-xs font-bold uppercase tracking-[0.2em] text-[#84cc16]">
-              How we work
-            </p>
-            <h2 className="text-4xl font-bold tracking-tight text-[#1A1A1A] md:text-5xl">
+      <section id="process" className="border-t border-[#E5E0D8] px-6 py-24">
+        <div className="mx-auto max-w-[1100px]">
+          <div className="mb-16 text-center">
+            <SectionLabel>How we work</SectionLabel>
+            <h2 className="mt-3 font-sans text-[40px] font-bold leading-[1.1] tracking-tight text-[#1A1A1A]">
               From zero to shipped.
             </h2>
           </div>
 
-          <div className="relative grid gap-8 md:grid-cols-4">
-            {/* Connector line — desktop only */}
+          {/* Horizontal timeline — desktop; vertical — mobile */}
+          <div className="relative grid gap-10 md:grid-cols-4 md:gap-6">
+
+            {/* Dotted connector line — desktop only, runs through center of numbers */}
             <div
-              className="pointer-events-none absolute left-0 right-0 top-8 hidden h-px bg-[#E5E0D8] md:block"
+              className="pointer-events-none absolute left-[12.5%] right-[12.5%] top-6 hidden border-t-2 border-dotted border-[#E5E0D8] md:block"
               aria-hidden="true"
             />
 
             {PROCESS_STEPS.map((step, idx) => (
               <div
                 key={step.number}
-                className="relative flex flex-col items-start md:items-center md:text-center"
+                className="relative flex flex-col items-start gap-3 md:items-center md:text-center"
               >
-                <div className="relative z-10 mb-5 flex h-16 w-16 items-center justify-center rounded-full border-2 border-[#84cc16] bg-white font-sans text-lg font-bold text-[#84cc16] shadow-sm">
+                {/* Large step number — 48px, #84cc16, font-black */}
+                <span className="relative z-10 block rounded-full bg-white px-1 font-sans text-5xl font-black leading-none text-[#84cc16]">
                   {step.number}
-                </div>
+                </span>
+
+                {/* Vertical connector on mobile */}
                 {idx < PROCESS_STEPS.length - 1 && (
-                  <div className="absolute left-8 top-16 h-8 w-px bg-[#E5E0D8] md:hidden" />
+                  <div className="absolute left-[23px] top-14 h-10 w-px border-l-2 border-dotted border-[#E5E0D8] md:hidden" />
                 )}
-                <h3 className="mb-2 text-base font-bold text-[#1A1A1A]">{step.label}</h3>
-                <p className="font-serif text-sm leading-relaxed text-[#767676]">
-                  {step.description}
-                </p>
+
+                <div>
+                  <h3 className="font-sans text-base font-bold text-[#1A1A1A]">{step.label}</h3>
+                  <p className="mt-1.5 font-serif text-[15px] leading-[1.7] text-[#767676]">
+                    {step.description}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
@@ -417,36 +473,39 @@ export default function Home() {
       </section>
 
       {/* ── Testimonials ── */}
-      <section className="border-t border-[#E5E0D8] bg-white px-6 py-24 md:py-32">
-        <div className="mx-auto max-w-7xl">
+      <section className="border-t border-[#E5E0D8] bg-white px-6 py-24">
+        <div className="mx-auto max-w-[1100px]">
           <div className="mb-14 text-center">
-            <p className="mb-3 font-sans text-xs font-bold uppercase tracking-[0.2em] text-[#84cc16]">
-              Client Love
-            </p>
-            <h2 className="text-4xl font-bold tracking-tight text-[#1A1A1A] md:text-5xl">
+            <SectionLabel>Client Love</SectionLabel>
+            <h2 className="mt-3 font-sans text-[40px] font-bold leading-[1.1] tracking-tight text-[#1A1A1A]">
               What they&apos;re saying.
             </h2>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-2">
             {TESTIMONIALS.map((t) => (
               <div
                 key={t.name}
-                className="flex flex-col justify-between rounded-xl border border-[#E5E0D8] bg-[#F9F8F6] p-7 transition-all duration-300 hover:shadow-md hover:border-[#84cc16]/40"
+                className="flex flex-col justify-between rounded-xl border border-[#E5E0D8] bg-white p-8 shadow-sm transition-all duration-300 hover:shadow-md hover:border-[#84cc16]/40"
               >
+                {/* Large opening quote */}
                 <div>
-                  <Quote className="mb-4 h-6 w-6 text-[#84cc16]" />
-                  <p className="font-serif text-sm leading-relaxed text-[#1A1A1A]">
-                    &ldquo;{t.quote}&rdquo;
+                  <span className="mb-4 block font-sans text-5xl font-black leading-none text-[#84cc16]">
+                    &ldquo;
+                  </span>
+                  {/* Quote in Merriweather italic */}
+                  <p className="font-serif text-[16px] italic leading-[1.7] text-[#1A1A1A]">
+                    {t.quote}
                   </p>
                 </div>
-                <div className="mt-6 flex items-center gap-3">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#84cc16] font-sans text-xs font-bold text-white">
+                {/* Attribution */}
+                <div className="mt-8 flex items-center gap-3 border-t border-[#E5E0D8] pt-6">
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#ECF1E4] font-sans text-xs font-bold text-[#4a730c]">
                     {t.initials}
                   </div>
                   <div>
                     <p className="font-sans text-sm font-semibold text-[#1A1A1A]">{t.name}</p>
-                    <p className="font-serif text-xs text-[#767676]">{t.role}</p>
+                    <p className="font-sans text-[12px] text-[#767676]">{t.role}</p>
                   </div>
                 </div>
               </div>
@@ -456,21 +515,19 @@ export default function Home() {
       </section>
 
       {/* ── Pricing ── */}
-      <section id="pricing" className="border-t border-[#E5E0D8] px-6 py-24 md:py-32">
-        <div className="mx-auto max-w-7xl">
+      <section id="pricing" className="border-t border-[#E5E0D8] px-6 py-24">
+        <div className="mx-auto max-w-[1100px]">
           <div className="mb-14 text-center">
-            <p className="mb-3 font-sans text-xs font-bold uppercase tracking-[0.2em] text-[#84cc16]">
-              Pricing
-            </p>
-            <h2 className="text-4xl font-bold tracking-tight text-[#1A1A1A] md:text-5xl">
+            <SectionLabel>Pricing</SectionLabel>
+            <h2 className="mt-3 font-sans text-[40px] font-bold leading-[1.1] tracking-tight text-[#1A1A1A]">
               Simple, honest pricing.
             </h2>
-            <p className="mt-4 font-serif text-[#767676]">
+            <p className="mt-4 font-serif text-[15px] leading-[1.7] text-[#767676]">
               No retainer lock-ins. No surprise invoices. Upgrade or pause anytime.
             </p>
           </div>
 
-          <div className="mx-auto grid max-w-4xl gap-6 md:grid-cols-2">
+          <div className="mx-auto grid max-w-3xl gap-6 md:grid-cols-2">
             {PRICING_PLANS.map((plan) => (
               <div
                 key={plan.name}
@@ -481,7 +538,7 @@ export default function Home() {
                 }`}
               >
                 {plan.featured && (
-                  <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-[#84cc16] px-4 py-1 font-sans text-xs font-bold text-white">
+                  <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-[#84cc16] px-4 py-1 font-sans text-[11px] font-bold uppercase tracking-[0.1em] text-white">
                     Most Popular
                   </span>
                 )}
@@ -496,7 +553,7 @@ export default function Home() {
                   </h3>
                   <div className="mt-3 flex items-baseline gap-1.5">
                     <span
-                      className={`font-sans text-4xl font-bold ${
+                      className={`font-sans text-4xl font-black ${
                         plan.featured ? 'text-white' : 'text-[#1A1A1A]'
                       }`}
                     >
@@ -511,7 +568,7 @@ export default function Home() {
                     </span>
                   </div>
                   <p
-                    className={`mt-3 font-serif text-sm leading-relaxed ${
+                    className={`mt-3 font-serif text-[15px] leading-[1.7] ${
                       plan.featured ? 'text-white/70' : 'text-[#767676]'
                     }`}
                   >
@@ -522,10 +579,10 @@ export default function Home() {
                 <ul className="mb-8 flex-1 space-y-3">
                   {plan.features.map((feature) => (
                     <li key={feature} className="flex items-start gap-3">
-                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#84cc16]" />
+                      <CheckCircle2 className="mt-0.5 h-[18px] w-[18px] shrink-0 text-[#84cc16]" />
                       <span
-                        className={`font-serif text-sm ${
-                          plan.featured ? 'text-white/85' : 'text-[#1A1A1A]'
+                        className={`font-serif text-[15px] leading-snug ${
+                          plan.featured ? 'text-white/80' : 'text-[#1A1A1A]'
                         }`}
                       >
                         {feature}
@@ -562,19 +619,20 @@ export default function Home() {
       </section>
 
       {/* ── CTA Banner ── */}
-      <section className="border-t border-[#E5E0D8] bg-[#1A1A1A] px-6 py-24 md:py-32">
-        <div className="mx-auto max-w-3xl text-center">
-          <p className="mb-4 font-sans text-xs font-bold uppercase tracking-[0.2em] text-[#84cc16]">
+      <section className="border-t border-[#E5E0D8] bg-[#1A1A1A] px-6 py-24">
+        <div className="mx-auto max-w-[680px] text-center">
+          <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.15em] text-[#84cc16]">
             Let&apos;s work together
           </p>
-          <h2 className="text-4xl font-bold leading-tight tracking-tight text-white md:text-5xl lg:text-6xl">
+          <h2 className="mt-4 font-sans text-[40px] font-bold leading-[1.1] tracking-tight text-white md:text-[52px]">
             Still fed up?{' '}
             <span className="text-[#84cc16]">Good.</span>
             <br />
             Let&apos;s fix that.
           </h2>
-          <p className="mt-6 font-serif text-lg leading-relaxed text-white/60">
-            Book a free 30-minute call. We&apos;ll scope your project, answer your questions, and tell you exactly what it takes to get it done.
+          <p className="mt-6 font-serif text-[17px] leading-[1.75] text-white/60">
+            Book a free 30-minute call. We&apos;ll scope your project, answer your questions,
+            and tell you exactly what it takes to get it done.
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <a
@@ -595,129 +653,79 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Footer ── */}
-      <footer className="border-t border-white/10 bg-[#1A1A1A] px-6 py-16">
-        <div className="mx-auto max-w-7xl">
-          <div className="grid gap-12 md:grid-cols-4">
-            {/* Brand */}
+      {/* ── Footer — 2 columns ── */}
+      <footer className="border-t border-white/10 bg-[#1A1A1A] px-6 py-12">
+        <div className="mx-auto max-w-[1100px]">
+          <div className="grid gap-12 md:grid-cols-2 md:gap-8">
+
+            {/* Left: logo + tagline + socials */}
             <div>
-              <Link href="/" className="mb-4 inline-flex items-center gap-2.5">
-                <LogoMark className="h-8 w-8" />
-                <span className="font-sans text-base font-bold text-white">fedup.studio</span>
-              </Link>
-              <p className="mt-3 font-serif text-sm leading-relaxed text-white/50">
-                Design engineering studio focused on brand, websites, and product interfaces that convert.
+              <div className="flex items-center gap-2">
+                <span className="text-[#84cc16] text-lg leading-none">✦</span>
+                <span className="font-sans text-base font-bold text-white">Fedup Studio</span>
+              </div>
+              <p className="mt-2 font-serif text-[15px] italic text-white/40">
+                Fed up with average design?
               </p>
-              <div className="mt-5 flex items-center gap-3">
-                <a
-                  href="https://twitter.com/fedupstudio"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Twitter"
-                  className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 text-white/40 transition-colors hover:border-white/30 hover:text-white"
-                >
-                  <Twitter className="h-3.5 w-3.5" />
-                </a>
-                <a
-                  href="https://linkedin.com/company/fedupstudio"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="LinkedIn"
-                  className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 text-white/40 transition-colors hover:border-white/30 hover:text-white"
-                >
-                  <Linkedin className="h-3.5 w-3.5" />
-                </a>
-                <a
-                  href="https://github.com/fedupstudio"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="GitHub"
-                  className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 text-white/40 transition-colors hover:border-white/30 hover:text-white"
-                >
-                  <Github className="h-3.5 w-3.5" />
-                </a>
+              <div className="mt-5 flex items-center gap-2.5">
+                {[
+                  { href: 'https://twitter.com/fedupstudio', label: 'Twitter', Icon: Twitter },
+                  { href: 'https://linkedin.com/company/fedupstudio', label: 'LinkedIn', Icon: Linkedin },
+                  { href: 'https://github.com/fedupstudio', label: 'GitHub', Icon: Github },
+                ].map(({ href, label, Icon }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 text-white/40 transition-colors hover:border-white/25 hover:text-white"
+                  >
+                    <Icon className="h-3.5 w-3.5" />
+                  </a>
+                ))}
               </div>
             </div>
 
-            {/* Navigation */}
-            <div>
-              <p className="mb-4 font-sans text-xs font-bold uppercase tracking-[0.15em] text-white/40">
-                Navigate
-              </p>
-              <ul className="space-y-2.5">
+            {/* Right: links */}
+            <div className="md:flex md:justify-end">
+              <ul className="space-y-3">
                 {[
-                  { href: '#work', label: 'Work' },
-                  { href: '#services', label: 'Services' },
-                  { href: '#process', label: 'Process' },
-                  { href: '#pricing', label: 'Pricing' },
+                  { label: 'Work', href: '#work' },
+                  { label: 'Services', href: '#services' },
+                  { label: 'Process', href: '#process' },
+                  { label: 'Pricing', href: '#pricing' },
+                  { label: 'Book a Call →', href: SITE.meetingLink, external: true },
                 ].map((link) => (
-                  <li key={link.href}>
-                    <a
-                      href={link.href}
-                      className="font-sans text-sm text-white/60 transition-colors hover:text-white"
-                    >
-                      {link.label}
-                    </a>
+                  <li key={link.label}>
+                    {link.external ? (
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-sans text-sm font-medium text-[#84cc16] transition-colors hover:text-[#a3e635]"
+                      >
+                        {link.label}
+                      </a>
+                    ) : (
+                      <a
+                        href={link.href}
+                        className="font-sans text-sm text-white/60 transition-colors hover:text-white"
+                      >
+                        {link.label}
+                      </a>
+                    )}
                   </li>
                 ))}
-              </ul>
-            </div>
-
-            {/* Services */}
-            <div>
-              <p className="mb-4 font-sans text-xs font-bold uppercase tracking-[0.15em] text-white/40">
-                Services
-              </p>
-              <ul className="space-y-2.5">
-                {[
-                  'Brand Identity',
-                  'Web Design',
-                  'Design Systems',
-                  'Figma to Code',
-                  'Landing Pages',
-                ].map((s) => (
-                  <li key={s}>
-                    <span className="font-sans text-sm text-white/50">{s}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Contact */}
-            <div>
-              <p className="mb-4 font-sans text-xs font-bold uppercase tracking-[0.15em] text-white/40">
-                Contact
-              </p>
-              <ul className="space-y-2.5">
-                <li>
-                  <a
-                    href={SITE.meetingLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-sans text-sm text-white/60 transition-colors hover:text-white"
-                  >
-                    Book a call →
-                  </a>
-                </li>
-                <li>
-                  <span className="font-sans text-sm text-white/40">
-                    India · Remote Worldwide
-                  </span>
-                </li>
               </ul>
             </div>
           </div>
 
-          {/* Bottom bar */}
-          <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 md:flex-row">
-            <p className="font-sans text-xs text-white/35">
+          {/* Copyright */}
+          <div className="mt-10 border-t border-white/10 pt-6">
+            <p className="font-sans text-[12px] text-white/30">
               © {new Date().getFullYear()} Fedup Studio. Crafted for ambitious teams.
             </p>
-            <div className="flex gap-6">
-              <a href="#work" className="font-sans text-xs text-white/35 transition-colors hover:text-white/60">Work</a>
-              <a href="#pricing" className="font-sans text-xs text-white/35 transition-colors hover:text-white/60">Pricing</a>
-              <Link href="/pricing" className="font-sans text-xs text-white/35 transition-colors hover:text-white/60">Packages</Link>
-            </div>
           </div>
         </div>
       </footer>
