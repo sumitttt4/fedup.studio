@@ -48,11 +48,11 @@ export function Navbar() {
           : 'bg-[#F9F8F6]'
       }`}
     >
-      <div className="mx-auto flex max-w-[1100px] items-center justify-between px-6 py-4">
+      <div className="mx-auto flex h-16 max-w-[1100px] items-center justify-between px-6">
         {/* Logo — ✦ symbol + text */}
         <Link href="/" className="flex items-center gap-2 shrink-0">
           <span className="text-[#84cc16] text-lg leading-none select-none">✦</span>
-          <span className="font-sans text-[15px] font-bold tracking-tight text-[#1A1A1A]">
+          <span className="font-sans text-[15px] font-semibold tracking-tight text-[#1A1A1A]">
             Fedup Studio
           </span>
         </Link>
