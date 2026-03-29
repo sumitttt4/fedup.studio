@@ -51,6 +51,9 @@ body {
   font-family: var(--font-serif);
   line-height: 1.6;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -77,8 +80,67 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Subtle dot pattern */
 .bg-grid-pattern {
-  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
-  background-size: 24px 24px;
+  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Brand Pattern Kit — from Glyph identity (#84cc16 / #68A211)
+   Use as overlays with pointer-events:none and low opacity
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Line Pattern — fine horizontal lines ── */
+.bg-pattern-lines {
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 11px,
+    rgba(132, 204, 22, 0.06) 11px,
+    rgba(132, 204, 22, 0.06) 12px
+  );
+}
+
+/* ── Wave Pattern — subtle sine curves ── */
+.bg-pattern-waves {
+  background-image: url("data:image/svg+xml,%3Csvg width='120' height='40' viewBox='0 0 120 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 20 Q30 0 60 20 Q90 40 120 20' fill='none' stroke='rgba(132,204,22,0.07)' stroke-width='1'/%3E%3C/svg%3E");
+  background-size: 120px 40px;
+}
+
+/* ── Diagonal Lines — 45° rule lines ── */
+.bg-pattern-diagonal {
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 14px,
+    rgba(132, 204, 22, 0.04) 14px,
+    rgba(132, 204, 22, 0.04) 15px
+  );
+}
+
+/* ── Geometric Texture — scattered dots + crosses ── */
+.bg-pattern-geo {
+  background-image:
+    radial-gradient(circle, rgba(132, 204, 22, 0.06) 1.5px, transparent 1.5px),
+    radial-gradient(circle, rgba(132, 204, 22, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px, 20px 20px;
+  background-position: 0 0, 10px 10px;
+}
+
+/* ── Circle Composition — organic scattered circles ── */
+.bg-pattern-circles {
+  background-image: url("data:image/svg+xml,%3Csvg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='40' cy='40' r='20' fill='rgba(132,204,22,0.03)'/%3E%3Ccircle cx='140' cy='30' r='12' fill='rgba(132,204,22,0.04)'/%3E%3Ccircle cx='100' cy='120' r='28' fill='rgba(132,204,22,0.025)'/%3E%3Ccircle cx='170' cy='150' r='16' fill='rgba(132,204,22,0.035)'/%3E%3Ccircle cx='30' cy='160' r='10' fill='rgba(132,204,22,0.04)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* ── Framer-level noise texture overlay ── */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
 }
 
 /* Card hover */
@@ -138,5 +200,225 @@ h1, h2, h3, h4, h5, h6 {
   .marquee-track,
   .marquee-track-slow {
     animation: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Premium SaaS Design Utilities
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Badge Pill ── */
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 9999px;
+  background: rgba(74, 144, 217, 0.06);
+  border: 1px solid rgba(74, 144, 217, 0.15);
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #4A90D9;
+}
+
+.badge-pill .badge-icon {
+  font-size: 14px;
+  line-height: 1;
+}
+
+/* ── Floating Card — Framer depth ── */
+.floating-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,0.02),
+    0 2px 4px rgba(0,0,0,0.02),
+    0 8px 24px rgba(0,0,0,0.06),
+    0 24px 48px rgba(0,0,0,0.03);
+  transition: box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.floating-card:hover {
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,0.03),
+    0 4px 8px rgba(0,0,0,0.03),
+    0 16px 40px rgba(0,0,0,0.08),
+    0 40px 64px rgba(0,0,0,0.04);
+  transform: translateY(-3px);
+}
+
+/* ── Dashed Border Card ── */
+.dashed-card {
+  position: relative;
+  background: #fff;
+  border-radius: 16px;
+  border: 2px dashed rgba(74, 144, 217, 0.35);
+  box-shadow:
+    0 4px 16px rgba(74, 144, 217, 0.06),
+    0 12px 32px rgba(0,0,0,0.04);
+}
+
+.dashed-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(74, 144, 217, 0.04), transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.dashed-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Section Gradient Wash — Framer-level richness ── */
+.gradient-wash {
+  position: relative;
+}
+
+.gradient-wash::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 40%, rgba(74, 144, 217, 0.05), transparent),
+    radial-gradient(ellipse 80% 50% at 80% 60%, rgba(200, 217, 240, 0.06), transparent),
+    radial-gradient(ellipse 70% 40% at 50% 20%, rgba(212, 232, 160, 0.05), transparent);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.gradient-wash > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Warm gradient section ── */
+.gradient-warm {
+  position: relative;
+}
+
+.gradient-warm::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 90% 60% at 30% 20%, rgba(232, 245, 208, 0.15), transparent),
+    radial-gradient(ellipse 70% 50% at 70% 80%, rgba(200, 217, 240, 0.08), transparent);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.gradient-warm > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Dark section gradient ── */
+.gradient-dark {
+  position: relative;
+}
+
+.gradient-dark::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 0%, rgba(132, 204, 22, 0.08), transparent),
+    radial-gradient(ellipse 60% 40% at 20% 80%, rgba(74, 144, 217, 0.05), transparent);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.gradient-dark > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Connection Lines ── */
+.connection-line-v {
+  width: 1px;
+  background: #D1D5DB;
+}
+
+.connection-line-h {
+  height: 1px;
+  background: #D1D5DB;
+}
+
+.connection-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #D1D5DB;
+}
+
+.connection-dot-active {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #4A90D9;
+  border: 2px solid rgba(74, 144, 217, 0.3);
+  box-shadow: 0 0 8px rgba(74, 144, 217, 0.2);
+}
+
+/* ── Feature Callout ── */
+.feature-callout {
+  max-width: 240px;
+}
+
+.feature-callout h4 {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 700;
+  color: #1A1A1A;
+  line-height: 1.3;
+  margin-bottom: 6px;
+}
+
+.feature-callout p {
+  font-family: var(--font-serif);
+  font-size: 13px;
+  line-height: 1.7;
+  color: #767676;
+}
+
+/* ── Subtle Float Animation ── */
+@keyframes subtle-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.float-animation {
+  animation: subtle-float 5s ease-in-out infinite;
+}
+
+/* ── Subtle pulse for connection dots ── */
+@keyframes dot-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.dot-pulse {
+  animation: dot-pulse 3s ease-in-out infinite;
+}
+
+/* ── Enhanced card entrance (for scroll-triggered) ── */
+@keyframes card-entrance {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }

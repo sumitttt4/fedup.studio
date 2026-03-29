@@ -43,16 +43,14 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@300;400;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Merriweather:wght@300;400;700&display=swap"
           rel="stylesheet"
         />
       </head>
       <body className="antialiased bg-[#F9F8F6] text-[#1A1A1A] selection:bg-[#84cc16]/30 selection:text-[#1A1A1A]">
         {children}
-        {/* Noise Grain Overlay */}
-        <div className="pointer-events-none fixed inset-0 z-[100] opacity-[0.025]" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-        }} />
+        {/* Noise Grain Overlay — Framer-level texture */}
+        <div className="noise-overlay" />
       </body>
     </html>
   );
