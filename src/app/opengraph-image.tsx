@@ -22,7 +22,7 @@ export default async function Image() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: '#0a0a0a',
+          backgroundColor: '#F7F4EE',
           position: 'relative',
         }}
       >
@@ -33,35 +33,35 @@ export default async function Image() {
             left: 0,
             width: '100%',
             height: '100%',
-            backgroundImage: 'radial-gradient(circle at 50% 120%, rgba(255, 68, 0, 0.4), rgba(10, 10, 10, 1))',
+            backgroundImage: 'radial-gradient(circle at 50% 120%, rgba(201, 106, 43, 0.15), rgba(247, 244, 238, 1))',
           }}
         />
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', zIndex: 10 }}>
           <h1
             style={{
-              fontSize: 120,
+              fontSize: 100,
               fontFamily: 'sans-serif',
-              color: '#FFFFFF',
+              color: '#171411',
               lineHeight: 1,
-              letterSpacing: '-0.05em',
+              letterSpacing: '-0.04em',
               marginBottom: 40,
               fontWeight: 800,
             }}
           >
-            fedup<span style={{ color: '#FF4400' }}>.</span>studio
+            fedup<span style={{ color: '#C96A2B' }}>.</span>studio
           </h1>
           <p
             style={{
-              fontSize: 40,
-              color: '#E5E5E5',
+              fontSize: 44,
+              color: '#6F675F',
               fontFamily: 'sans-serif',
               textAlign: 'center',
               letterSpacing: '-0.02em',
-              fontWeight: 500,
+              fontWeight: 600,
               lineHeight: 1.2,
             }}
           >
-            We set the stage. <br/> You steal the show.
+            We design & build products <br/> that actually ship.
           </p>
         </div>
       </div>
