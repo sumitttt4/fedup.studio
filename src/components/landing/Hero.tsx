@@ -2,157 +2,120 @@
 
 import { motion } from 'framer-motion';
 import { SITE } from '@/lib/site';
+import { ArrowRight, Star } from 'lucide-react';
 
 const container = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.12, delayChildren: 0.25 },
+    transition: { staggerChildren: 0.1, delayChildren: 0.1 },
   },
 };
 
 const item = {
-  hidden: { opacity: 0, y: 28 },
+  hidden: { opacity: 0, y: 20 },
   show: {
     opacity: 1,
     y: 0,
-    transition: { type: 'spring' as const, stiffness: 50, damping: 20 },
+    transition: { type: 'spring' as const, stiffness: 60, damping: 20 },
   },
 };
 
-const AVATARS = [
-  { initials: 'AM' },
-  { initials: 'SC' },
-  { initials: 'RG' },
-];
-
 export function Hero() {
   return (
-    <section
-      className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-4 sm:px-6 text-center bg-[#F9F8F6]"
-    >
-      {/* Background radial gradient fade */}
+    <section className="relative min-h-[90svh] flex flex-col items-center justify-center overflow-hidden px-6 pt-32 pb-20 bg-[#FAFAFA]">
+      {/* Subtle grid background for high-craft SaaS feel */}
       <div 
-        className="pointer-events-none absolute inset-0 z-0"
+        className="absolute inset-0 z-0 opacity-40 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse 150% 120% at 50% 0%, #e8f5d0 0%, #F0EDE6 30%, transparent 100%)',
+          backgroundImage: `
+            linear-gradient(to right, #E5E5E5 1px, transparent 1px),
+            linear-gradient(to bottom, #E5E5E5 1px, transparent 1px)
+          `,
+          backgroundSize: '40px 40px',
+          maskImage: 'radial-gradient(ellipse 60% 60% at 50% 50%, #000 10%, transparent 100%)',
+          WebkitMaskImage: 'radial-gradient(ellipse 60% 60% at 50% 50%, #000 10%, transparent 100%)',
         }}
       />
 
-      {/* Grid and Noise with mask to fade at bottom */}
-      <div
-        className="pointer-events-none absolute inset-0 z-[1]"
-        style={{
-          WebkitMaskImage: 'linear-gradient(to bottom, black 50%, transparent 100%)',
-          maskImage: 'linear-gradient(to bottom, black 50%, transparent 100%)',
-        }}
-      >
-        <div
-          className="absolute inset-0 z-[2] opacity-[0.03]"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-            backgroundRepeat: 'repeat',
-          }}
-        />
-        <div className="absolute inset-0 bg-grid-pattern opacity-25" />
-        <div className="absolute left-[10%] sm:left-[15%] top-[15%] sm:top-[20%] h-[200px] w-[200px] sm:h-[300px] sm:w-[300px] rounded-full bg-[#d4e8a0]/20 blur-[80px] sm:blur-[100px]" />
-        <div className="absolute right-[10%] sm:right-[15%] top-[20%] sm:top-[25%] h-[180px] w-[180px] sm:h-[250px] sm:w-[250px] rounded-full bg-[#c8d9f0]/15 blur-[60px] sm:blur-[80px]" />
-      </div>
+      {/* Subtle accent glow behind the text */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#FF4400] opacity-[0.05] blur-[120px] rounded-full pointer-events-none z-0" />
 
       <motion.div
         variants={container}
         initial="hidden"
         animate="show"
-        className="relative z-10 mx-auto flex max-w-[780px] flex-col items-center px-2"
+        className="relative z-10 mx-auto w-full max-w-[1000px] flex flex-col items-center text-center"
       >
         {/* Availability Badge */}
-        <motion.div
-          variants={item}
-          className="mb-6 sm:mb-10 inline-flex items-center gap-2 sm:gap-2.5 rounded-full border border-[#84cc16]/30 px-3.5 sm:px-5 py-1.5 sm:py-2"
-          style={{ backgroundColor: 'rgba(132, 204, 22, 0.05)', backdropFilter: 'blur(8px)' }}
-        >
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#84cc16] opacity-60" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-[#84cc16]" />
-          </span>
-          <span className="font-sans text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.14em] text-[#5a8a0e]">
-            Available for new projects
+        <motion.div variants={item} className="mb-8 inline-flex items-center gap-2 rounded-full border border-[#E5E5E5] bg-[#FFFFFF] px-4 py-1.5 shadow-sm">
+          <span className="status-dot" />
+          <span className="font-sans text-[12px] font-medium text-[#737373]">
+            Fed up with old designs? We're here.
           </span>
         </motion.div>
 
-        {/* H1 — Weight contrast: lighter "Fed up with" vs black "average design?" */}
+        {/* Headline */}
         <motion.h1
           variants={item}
-          className="leading-[calc(1.05em+6px)] tracking-tight text-[#111827]"
-          style={{ fontSize: 'clamp(36px, 7vw, 82px)' }}
+          className="font-display font-bold tracking-tight text-[#111111] leading-[1.05]"
+          style={{ fontSize: 'clamp(40px, 5vw, 72px)' }}
         >
-          <span
-            className="block font-sans text-[#111827]"
-            style={{ fontWeight: 500, marginBottom: '12px' }}
-          >
-            Fed up with
-          </span>
-          <span className="block font-sans font-black text-[#111827] relative">
-            average design
-            <span className="text-[#111827]">?</span>
-            {/* Green underline accent — color used sparingly */}
-            <span
-              className="absolute bottom-[1px] sm:bottom-[2px] left-0 right-0 h-[4px] sm:h-[6px] rounded-full bg-[#84cc16]/25 -z-10"
-              style={{ transform: 'skewX(-3deg)' }}
-            />
-          </span>
+          We design interfaces that <br className="hidden md:block" />
+          <span className="text-[#FF4400]">convert and scale.</span>
         </motion.h1>
 
-        {/* Subtext — Merriweather italic for serif/sans drama contrast */}
+        {/* Subcopy */}
         <motion.p
           variants={item}
-          className="mt-5 sm:mt-7 mx-auto max-w-[480px] font-serif text-[18px] italic text-[#4B5563]"
-          style={{ lineHeight: 1.85 }}
+          className="mt-6 max-w-[540px] font-sans text-[16px] sm:text-[18px] leading-[1.6] text-[#737373]"
         >
-          We design and build digital products that convert. No bloat, no handoff mess —
-          just clean execution.
+          Fedup.studio is a specialized design agency helping startups build world-class brand identities and high-performing web experiences.
         </motion.p>
 
-        {/* CTA Row */}
+        {/* CTAs */}
         <motion.div
           variants={item}
-          className="mt-7 sm:mt-10 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto"
+          className="mt-10 flex flex-col sm:flex-row items-center gap-4"
         >
-          <a
-            href="#work"
-            className="w-full sm:w-auto text-center group rounded-lg border border-[#E5E0D8] bg-transparent px-6 sm:px-7 py-3 sm:py-3.5 font-sans text-sm font-semibold text-[#4B5563] transition-all duration-200 hover:border-[#111827] hover:text-[#111827]"
-          >
-            See Our Work
-          </a>
           <a
             href={SITE.meetingLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full sm:w-auto text-center rounded-lg bg-[#84cc16] px-6 sm:px-7 py-3 sm:py-3.5 font-sans text-sm font-semibold text-white shadow-lg shadow-[#84cc16]/20 transition-all duration-200 hover:bg-[#68a211] hover:shadow-xl hover:shadow-[#84cc16]/25"
+            className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-[#FF4400] px-8 font-sans text-[14px] font-bold text-white transition-all duration-200 hover:scale-[1.02] hover:bg-[#E63D00] shadow-[0_0_20px_rgba(255,68,0,0.3)]"
           >
-            Book a Call →
+            Start a project
+          </a>
+          <a
+            href="#work"
+            className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-[#E5E5E5] bg-[#FFFFFF] px-8 font-sans text-[14px] font-bold text-[#111111] transition-all duration-200 hover:border-[#737373]"
+          >
+            See our work
           </a>
         </motion.div>
 
-        {/* Trusted by */}
-        <motion.div
+        {/* Social Proof */}
+        <motion.div 
           variants={item}
-          className="mt-[32px] flex flex-col items-center gap-3 sm:flex-row sm:gap-4"
+          className="mt-16 flex flex-col items-center gap-3 border-t border-[#E5E5E5] pt-8"
         >
-          <div className="flex items-center">
-            {AVATARS.map((a, idx) => (
-              <div
-                key={a.initials}
-                className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-[#F5F3EE] bg-[#ECF1E4] font-sans text-[10px] font-bold text-[#5a8a0e] shadow-sm"
-                style={{ marginLeft: idx > 0 ? '-8px' : 0, zIndex: 3 - idx }}
-              >
-                {a.initials}
+          <div className="flex -space-x-2">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="h-8 w-8 rounded-full border-2 border-[#FAFAFA] bg-[#F0F0F0] overflow-hidden">
+                <img 
+                  src={`https://api.dicebear.com/7.x/notionists/svg?seed=${i + 10}&backgroundColor=FF4400`} 
+                  alt="Founder avatar" 
+                  className="h-full w-full object-cover" 
+                />
               </div>
             ))}
           </div>
-          <p className="font-sans text-[12px] sm:text-[13px] text-[#8a8a8a]">
-            Trusted by founders & developers
-          </p>
+          <div className="flex items-center gap-2 text-[13px] font-medium text-[#737373]">
+            <div className="flex gap-0.5 text-[#FF4400]">
+              {[1, 2, 3, 4, 5].map(i => <Star key={i} className="w-3.5 h-3.5 fill-current" />)}
+            </div>
+            <span>Trusted by 12+ founders and startups</span>
+          </div>
         </motion.div>
       </motion.div>
     </section>

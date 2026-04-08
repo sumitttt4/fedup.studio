@@ -1,40 +1,33 @@
 @import "tailwindcss";
 
 :root {
-  /* Brand system */
-  --primary: #84cc16;
-  --primary-hover: #68a211;
-  --primary-light: #ECF1E4;
-  --background: #F9F8F6;
+  --background: #FAFAFA;
   --surface: #FFFFFF;
-  --text: #1A1A1A;
-  --muted: #767676;
-  --border: #E5E0D8;
+  --text: #111111;
+  --muted: #737373;
+  --accent: #FF4400;
+  --accent-hover: #E63D00;
+  --border: #E5E5E5;
 
-  /* Legacy aliases for existing components */
-  --card: #ffffff;
-  --card-hover: #fafafa;
-  --border-hover: rgba(0, 0, 0, 0.15);
-  --accent: #84cc16;
-  --foreground: #1A1A1A;
+  /* Legacy aliases */
+  --card: #FFFFFF;
+  --foreground: #111111;
 }
 
 @theme inline {
-  --color-primary: var(--primary);
-  --color-primary-hover: var(--primary-hover);
-  --color-primary-light: var(--primary-light);
   --color-background: var(--background);
   --color-surface: var(--surface);
   --color-text: var(--text);
   --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
   --color-border: var(--border);
   --color-card: var(--card);
-  --color-card-hover: var(--card-hover);
-  --color-accent: var(--accent);
   --color-foreground: var(--foreground);
-  --font-sans: 'Inter', var(--font-geist-sans), system-ui, -apple-system, sans-serif;
-  --font-serif: 'Merriweather', Georgia, serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-sans: 'Satoshi', var(--font-geist-sans), system-ui, sans-serif;
+  --font-serif: Georgia, serif;
+  --font-mono: ui-monospace, monospace;
+  --font-display: 'Cabinet Grotesk', system-ui, sans-serif;
 }
 
 * {
@@ -48,7 +41,7 @@ html {
 body {
   background: var(--background);
   color: var(--text);
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   line-height: 1.6;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -57,130 +50,44 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-sans);
+  font-family: var(--font-display);
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.1);
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.2);
-}
-
-/* Subtle dot pattern */
-.bg-grid-pattern {
-  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
-  background-size: 28px 28px;
-}
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--background); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted); }
 
 /* ═══════════════════════════════════════════════════════════════
-   Brand Pattern Kit — from Glyph identity (#84cc16 / #68A211)
-   Use as overlays with pointer-events:none and low opacity
+   Premium Scratch / Paper Texture Overlay (Light mode optimized)
    ═══════════════════════════════════════════════════════════════ */
 
-/* ── Line Pattern — fine horizontal lines ── */
-.bg-pattern-lines {
-  background-image: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 11px,
-    rgba(132, 204, 22, 0.06) 11px,
-    rgba(132, 204, 22, 0.06) 12px
-  );
-}
-
-/* ── Wave Pattern — subtle sine curves ── */
-.bg-pattern-waves {
-  background-image: url("data:image/svg+xml,%3Csvg width='120' height='40' viewBox='0 0 120 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 20 Q30 0 60 20 Q90 40 120 20' fill='none' stroke='rgba(132,204,22,0.07)' stroke-width='1'/%3E%3C/svg%3E");
-  background-size: 120px 40px;
-}
-
-/* ── Diagonal Lines — 45° rule lines ── */
-.bg-pattern-diagonal {
-  background-image: repeating-linear-gradient(
-    45deg,
-    transparent,
-    transparent 14px,
-    rgba(132, 204, 22, 0.04) 14px,
-    rgba(132, 204, 22, 0.04) 15px
-  );
-}
-
-/* ── Geometric Texture — scattered dots + crosses ── */
-.bg-pattern-geo {
-  background-image:
-    radial-gradient(circle, rgba(132, 204, 22, 0.06) 1.5px, transparent 1.5px),
-    radial-gradient(circle, rgba(132, 204, 22, 0.04) 1px, transparent 1px);
-  background-size: 40px 40px, 20px 20px;
-  background-position: 0 0, 10px 10px;
-}
-
-/* ── Circle Composition — organic scattered circles ── */
-.bg-pattern-circles {
-  background-image: url("data:image/svg+xml,%3Csvg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='40' cy='40' r='20' fill='rgba(132,204,22,0.03)'/%3E%3Ccircle cx='140' cy='30' r='12' fill='rgba(132,204,22,0.04)'/%3E%3Ccircle cx='100' cy='120' r='28' fill='rgba(132,204,22,0.025)'/%3E%3Ccircle cx='170' cy='150' r='16' fill='rgba(132,204,22,0.035)'/%3E%3Ccircle cx='30' cy='160' r='10' fill='rgba(132,204,22,0.04)'/%3E%3C/svg%3E");
-  background-size: 200px 200px;
-}
-
-/* ── Framer-level noise texture overlay ── */
-.noise-overlay {
+.scratch-texture {
   position: fixed;
   inset: 0;
   z-index: 100;
   pointer-events: none;
   opacity: 0.025;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-repeat: repeat;
 }
 
-/* Card hover */
-.card-hover {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+/* ═══════════════════════════════════════════════════════════════
+   Animation Utilities
+   ═══════════════════════════════════════════════════════════════ */
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.card-hover:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.08);
+@keyframes subtle-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
 }
 
-/* Shimmer sweep animation */
-@keyframes shimmer-sweep {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
-
-.shimmer-sweep {
-  animation: shimmer-sweep 3s ease-in-out infinite;
-}
-
-/* Gradient border effect */
-.gradient-border {
-  position: relative;
-}
-
-.gradient-border::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.02));
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  pointer-events: none;
-}
-
-/* Marquee */
 @keyframes marquee-scroll {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
@@ -188,237 +95,56 @@ h1, h2, h3, h4, h5, h6 {
 
 .marquee-track {
   width: max-content;
-  animation: marquee-scroll 28s linear infinite;
-}
-
-.marquee-track-slow {
-  width: max-content;
-  animation: marquee-scroll 45s linear infinite;
+  animation: marquee-scroll 40s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .marquee-track,
-  .marquee-track-slow {
-    animation: none;
+  .marquee-track { animation: none; }
+}
+
+/* ── Sticky Cards Container ── */
+.sticky-cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10vh;
+  margin-top: 5vh;
+  padding-bottom: 10vh;
+}
+
+@media (max-width: 768px) {
+  .sticky-cards-container {
+    gap: 40px;
   }
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   Premium SaaS Design Utilities
+   Component Utilities
    ═══════════════════════════════════════════════════════════════ */
 
-/* ── Badge Pill ── */
-.badge-pill {
+/* Status dot width ping */
+.status-dot {
+  position: relative;
   display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 16px;
+  height: 6px;
+  width: 6px;
+}
+
+.status-dot::before {
+  content: '';
+  position: absolute;
+  inset: 0;
   border-radius: 9999px;
-  background: rgba(74, 144, 217, 0.06);
-  border: 1px solid rgba(74, 144, 217, 0.15);
-  font-family: var(--font-sans);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #4A90D9;
+  background: var(--accent);
+  animation: subtle-pulse 2.5s ease-in-out infinite;
 }
 
-.badge-pill .badge-icon {
-  font-size: 14px;
-  line-height: 1;
-}
-
-/* ── Floating Card — Framer depth ── */
-.floating-card {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  border-radius: 16px;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  box-shadow:
-    0 0 0 1px rgba(0,0,0,0.02),
-    0 2px 4px rgba(0,0,0,0.02),
-    0 8px 24px rgba(0,0,0,0.06),
-    0 24px 48px rgba(0,0,0,0.03);
-  transition: box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.floating-card:hover {
-  box-shadow:
-    0 0 0 1px rgba(0,0,0,0.03),
-    0 4px 8px rgba(0,0,0,0.03),
-    0 16px 40px rgba(0,0,0,0.08),
-    0 40px 64px rgba(0,0,0,0.04);
-  transform: translateY(-3px);
-}
-
-/* ── Dashed Border Card ── */
-.dashed-card {
-  position: relative;
-  background: #fff;
-  border-radius: 16px;
-  border: 2px dashed rgba(74, 144, 217, 0.35);
-  box-shadow:
-    0 4px 16px rgba(74, 144, 217, 0.06),
-    0 12px 32px rgba(0,0,0,0.04);
-}
-
-.dashed-card::before {
+.status-dot::after {
   content: '';
-  position: absolute;
-  inset: -1px;
-  border-radius: 18px;
-  background: linear-gradient(135deg, rgba(74, 144, 217, 0.04), transparent 60%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.dashed-card > * {
   position: relative;
-  z-index: 1;
+  display: inline-flex;
+  height: 6px;
+  width: 6px;
+  border-radius: 9999px;
+  background: var(--accent);
 }
 
-/* ── Section Gradient Wash — Framer-level richness ── */
-.gradient-wash {
-  position: relative;
-}
-
-.gradient-wash::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 80% 50% at 20% 40%, rgba(74, 144, 217, 0.05), transparent),
-    radial-gradient(ellipse 80% 50% at 80% 60%, rgba(200, 217, 240, 0.06), transparent),
-    radial-gradient(ellipse 70% 40% at 50% 20%, rgba(212, 232, 160, 0.05), transparent);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.gradient-wash > * {
-  position: relative;
-  z-index: 1;
-}
-
-/* ── Warm gradient section ── */
-.gradient-warm {
-  position: relative;
-}
-
-.gradient-warm::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 90% 60% at 30% 20%, rgba(232, 245, 208, 0.15), transparent),
-    radial-gradient(ellipse 70% 50% at 70% 80%, rgba(200, 217, 240, 0.08), transparent);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.gradient-warm > * {
-  position: relative;
-  z-index: 1;
-}
-
-/* ── Dark section gradient ── */
-.gradient-dark {
-  position: relative;
-}
-
-.gradient-dark::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 70% 50% at 50% 0%, rgba(132, 204, 22, 0.08), transparent),
-    radial-gradient(ellipse 60% 40% at 20% 80%, rgba(74, 144, 217, 0.05), transparent);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.gradient-dark > * {
-  position: relative;
-  z-index: 1;
-}
-
-/* ── Connection Lines ── */
-.connection-line-v {
-  width: 1px;
-  background: #D1D5DB;
-}
-
-.connection-line-h {
-  height: 1px;
-  background: #D1D5DB;
-}
-
-.connection-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #fff;
-  border: 2px solid #D1D5DB;
-}
-
-.connection-dot-active {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #4A90D9;
-  border: 2px solid rgba(74, 144, 217, 0.3);
-  box-shadow: 0 0 8px rgba(74, 144, 217, 0.2);
-}
-
-/* ── Feature Callout ── */
-.feature-callout {
-  max-width: 240px;
-}
-
-.feature-callout h4 {
-  font-family: var(--font-sans);
-  font-size: 16px;
-  font-weight: 700;
-  color: #1A1A1A;
-  line-height: 1.3;
-  margin-bottom: 6px;
-}
-
-.feature-callout p {
-  font-family: var(--font-serif);
-  font-size: 13px;
-  line-height: 1.7;
-  color: #767676;
-}
-
-/* ── Subtle Float Animation ── */
-@keyframes subtle-float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-}
-
-.float-animation {
-  animation: subtle-float 5s ease-in-out infinite;
-}
-
-/* ── Subtle pulse for connection dots ── */
-@keyframes dot-pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
-}
-
-.dot-pulse {
-  animation: dot-pulse 3s ease-in-out infinite;
-}
-
-/* ── Enhanced card entrance (for scroll-triggered) ── */
-@keyframes card-entrance {
-  from {
-    opacity: 0;
-    transform: translateY(20px) scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
