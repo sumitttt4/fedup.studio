@@ -19,14 +19,12 @@ export const metadata: Metadata = {
     description: 'We design and build digital products that convert.',
     url: '/',
     siteName: SITE.name,
-    images: [{ url: SITE.ogImage, width: 1200, height: 630, alt: 'Fedup Studio' }],
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'fedup.studio — Design & Development Studio',
     description: 'We design and build digital products that convert.',
-    images: [SITE.ogImage],
   },
 };
 
