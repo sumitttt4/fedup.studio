@@ -297,7 +297,7 @@ export default function Home() {
             </div>
 
             <div className="flex gap-4">
-              <a href="#" className="text-[#737373] hover:text-[#FF4400]"><Twitter className="w-5 h-5" /></a>
+              <a href="https://x.com/sumitdotme" target="_blank" rel="noopener noreferrer" className="text-[#737373] hover:text-[#FF4400]"><Twitter className="w-5 h-5" /></a>
               <a href="#" className="text-[#737373] hover:text-[#FF4400]"><Linkedin className="w-5 h-5" /></a>
             </div>
           </div>

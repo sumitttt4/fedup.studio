@@ -13,7 +13,7 @@ const services = [
 ];
 
 const socials = [
-    { label: 'Twitter/X', href: '#' },
+    { label: 'Twitter/X', href: 'https://x.com/sumitdotme' },
     { label: 'LinkedIn', href: '#' },
     { label: 'Dribbble', href: '#' },
 ];
